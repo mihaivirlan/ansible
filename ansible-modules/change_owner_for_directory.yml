@@ -1,0 +1,9 @@
+- hosts: servers
+  become: true
+  tasks:
+  - name: Copy file with owner and permissions
+    file:
+      path: /root/docker
+      owner: root
+      group: root
+      mode: '0644'
