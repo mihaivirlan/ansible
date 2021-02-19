@@ -39,3 +39,29 @@ ansible_python_interpreter=/usr/bin/python3
 - pwd (should be as: `/root/ansible/ansible-modules`)
 - ansible-playbook copy_file_module.yml
 - and so... for each module from the `/root/ansible/ansible-modules` folder
+
+
+# Create EC2 instance using Ansible
+### From your aws console `https://us-east-2.console.aws.amazon.com/`:
+- Acces from `Services` menu, the `IAM` create a `user` and generate a `key` for your `new user created`,<br/> 
+  or it's generated automatically,<br/> 
+  and needed only copy+paste these keys into one new `notepad++` file and save this file into secure location<br/>
+  later you will need to use this `key` into `.boto` file
+
+- check if you have a `key pair` in your aws console, if not have, create one,<br/>
+  to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
+  later you will need to use this `key pair` in the `task.yml` file
+
+### From `ansible-root` machine:
+- sudo su - 
+- apt install python-pip
+- pip install boto
+- nano `.boto`
+[Credentials]<br/>
+aws_access_key_id = `paste_your_generated_key_for_user_created_above_account`<br/>
+aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account`
+
+- cd /root/ansible/create-ec2-instance-using-ansible
+- ansible-playbook task.yml
+- after task running successfully, check in your aws console `https://us-east-2.console.aws.amazon.com/`,<br/> 
+  if the instance was successfully created.
