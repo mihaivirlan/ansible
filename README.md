@@ -4,12 +4,12 @@
 - `ansible-root` and `ansible-client`: two up hosts/vm's, mandatory for this demo!
 
 ### Get started
-- edit your local /etc/hosts file and add inside,<br/> 
+- edit your local `/etc/hosts` file and add inside,<br/> 
   the hostname and ip address for `ansible-root` machine
 
 - open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
 - after connected, from `ansible-root` machine,<br/>
-  edit and add your hostname and ip address for `ansible-client` machine in /etc/hosts,<br/>
+  edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
   generate the ssh key,<br/>
   and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id ansible-client`
 
@@ -23,7 +23,7 @@
 - apt install git
 - ansible --version
 - git --version
-- nano /etc/ansible/hosts (edit and add follow entry at the end of the file)<br/>
+- nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
 [servers]<br/>
 ansible-client ansible_host=192.168.8.108<br/>
 [all:vars]<br/>
