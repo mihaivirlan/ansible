@@ -1,6 +1,5 @@
 # Ansible modules
 ### Contents
-- working with more and different ansible modules
 - `ansible-root` and `ansible-client`: two up hosts/vm's, mandatory for this demo!
 
 ### Get started
@@ -39,4 +38,4 @@ ansible_python_interpreter=/usr/bin/python3
 - cd ansible-modules/
 - pwd (should be as: `/root/ansible/ansible-modules`)
 - ansible-playbook copy_file_module.yml
-- and so for each module in the `/root/ansible/ansible-modules` folder...
+- and so... for each module from the `/root/ansible/ansible-modules` folder
