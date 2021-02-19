@@ -1,0 +1,31 @@
+- nano archive_module
+
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Compress directory /etc/some_directory into /etc/some_directory.tgz
+    archive:
+      path: /etc/some_directory
+      dest: /etc/some_directory.tgz
+
+- ansible-playbook archive_module
+- ansible servers -a "find / -name 'some_directory*'" -u root
+
+
+- nano archive_module_2
+
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Create a bz2 archive of multiple files, rooted at /path
+    archive:
+      path:
+    - /path/to/foo
+	- /path/wong/foo
+    dest: /path/file.tar.bz2
+    format: bz2
+
+- ansible-playbook archive_module_2
+- ansible-playbook archive_module_2  --syntax-check

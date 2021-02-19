@@ -1,0 +1,9 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Start service foo, based on running process /usr/bin/foo
+    service:
+      name: nginx
+      pattern: /usr/sbin/nginx
+      state: started

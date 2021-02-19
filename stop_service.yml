@@ -1,0 +1,8 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Stop httpd service
+    service:
+      name: nginx
+      state: stopped

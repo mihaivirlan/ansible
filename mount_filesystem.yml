@@ -1,0 +1,10 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Mount a filesystem
+    mount:
+      fstype: xfs
+      src: /dev/vg1/lvol1
+      path: /opt/web
+      state: mounted

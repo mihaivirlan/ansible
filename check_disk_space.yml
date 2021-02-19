@@ -1,0 +1,9 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+    - name: Execute /boot usage on Hosts
+      command: 'df -Th /'
+      register: df
+
+     - debug: var=df.stdout

@@ -1,0 +1,8 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Unmount a filesystem
+    mount:
+      path: /opt/web
+      state: unmounted

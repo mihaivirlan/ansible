@@ -1,0 +1,10 @@
+- hosts: servers
+  become: true
+  tasks:
+  - name: Copy file with owner and permissions
+    copy:
+      src: /home/mihail/docker
+      dest: /root
+      owner: mihail
+      group: mihail
+      mode: '0644'

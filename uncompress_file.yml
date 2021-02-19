@@ -1,0 +1,8 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+  - name:Uncompress /tmp/web.gz to/opt directory  on Ansible controller
+    unarchive:
+      src: /tmp/web
+      dest: /opt/
