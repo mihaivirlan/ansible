@@ -1,8 +1,7 @@
----
 - hosts: servers
   become: yes
   tasks:
-  - name: Install Apache on CentOS Server
+  - name: Install httpd on CentOS Server
     yum:
       name: httpd  
       state: present
