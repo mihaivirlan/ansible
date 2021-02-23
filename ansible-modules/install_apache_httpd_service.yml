@@ -1,0 +1,14 @@
+- hosts: servers
+  become: true
+  tasks:
+  - name: install the latest version of httpd on RedHat instances
+    yum:
+      name: httpd
+      state: latest
+    when: ansible_os_family == 'RedHat'
+
+  - name: install the latest version of Apache on Debian instances
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_os_family == 'Debian'
