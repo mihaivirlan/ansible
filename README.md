@@ -71,7 +71,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 ### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
 ### From `ansible-root` machine:
 - sudo su -
-- edit your `/etc/hosts` file, and add the ip_addresses with hostnames for your client instances
+- edit your `/etc/hosts` file, and add the ip_addresses with hostnames for your client/servers group instances
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
 - cd /root/ansible/ansible-inventories
 - ansible-inventory -i inventory --list
