@@ -37,4 +37,8 @@ ansible_winrm_port: 5985
   winrm set winrm/config/service/auth @{Basic="true"}
 
 - from ansible-root machine:
-ansible -m win_ping win
+- in fisierrul /etc/ansible/hosts adaugam:
+[win]
+DESKTOP-NCREQG4
+
+- ansible -m win_ping win
