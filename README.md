@@ -65,3 +65,16 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - ansible-playbook task.yml
 - after task running successfully, check in your aws console `https://us-east-2.console.aws.amazon.com/`,<br/> 
   if the instance was successfully created.
+
+
+# Ansible Inventories
+### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
+### From `ansible-root` machine:
+- sudo su -
+- edit your `/etc/hosts` file, and add the ip_addresses with hostnames for your client instances
+- comment out all earlier `servers` entries from `/etc/ansible/hosts` file
+- cd /root/ansible/ansible-inventories
+- ansible-inventory -i inventory --list
+- ansible servers -i inventory -m ping
+- ansible servers -i inventory -a "df -h"
+- ansible-playbook -i inventory updates_packages.yml

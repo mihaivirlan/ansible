@@ -1,0 +1,9 @@
+[servers]
+centos8-server
+ubuntu20-desktop
+ubuntu19-server
+ubuntu19-desktop
+ubuntu18-server
+
+[servers:vars]
+ansible_python_interpreter=/usr/bin/python3
