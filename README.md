@@ -124,7 +124,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - wget https://bootstrap.pypa.io/get-pip.py
 - python3.6 get-pip.py / python get-pip.py
 - pip install pywinrm
-- edit and add in your `/etc/hosts` the hostname and ip_address for your `windows` machine
+- edit and add in your `/etc/hosts` the `hostname` and `ip_address` for your `windows` machine
 - edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
 [win]<br/>
 your_windows_hostname
@@ -141,7 +141,7 @@ ansible_winrm_port: `5985`
   `ping windows_hostname`
 
 - cd `/etc/ansible/group_vars`
-- ansible -m win_ping win / ansible win -m win_ping
+- ansible win -m win_ping
 
 ### Working with `win_chocolatey` - ansible module
 #### From `ansible-root` machine:
@@ -151,4 +151,4 @@ ansible_winrm_port: `5985`
 - ansible-playbook win_package.yml
 
 #### From your `windows` machine:
-- check if all tool mentioned in your `win_package.yml` were installed successfully:
+- check if all tool mentioned in your `win_package.yml` were installed successfully
