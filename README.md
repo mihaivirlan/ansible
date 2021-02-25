@@ -16,7 +16,7 @@
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-#### Install/setting up the git/ansible on your `ansible-root` machine:
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
 - sudo su -
 - apt update; apt install ansible
 - apt install git
@@ -56,7 +56,7 @@ ansible_python_interpreter=/usr/bin/python3
   to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
   later you will need to use this `key pair` in the `task.yml` file
 
-#### From `ansible-root` machine:
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
 - sudo su - 
 - apt install python-pip
 - pip install boto
@@ -85,6 +85,9 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Manage Windows / Ansible Winrm
+#### Contents
+- `ansible-root` and `windows`: two up hosts/vm's, mandatory for this demo!
+
 #### From your `windows` machine:
 - Create/add a new user on `windows` machine, and assign it to group Administrator:<br/>
 	username: `your_username`<br/>
@@ -100,8 +103,11 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
   winrm set winrm/config/service @{AllowUnencrypted="true"}<br/>
   winrm set winrm/config/service/auth @{Basic="true"}<br/>
 
-#### From `ansible-root` machine:
+#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
 - sudo su -
+- should need to have installed the `ansible`:<br/>
+  https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-centos-7
+
 - for `centos7`: yum install wget && yum install gcc && yum install python-devel && yum install python-pip
 - or, for `centos8`: dnf install wget && dnf install gcc && dnf install python3-devel && dnf install python3-pip
 - pip -V
