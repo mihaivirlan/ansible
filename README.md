@@ -108,6 +108,11 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
   winrm set winrm/config/service @{AllowUnencrypted="true"}<br/>
   winrm set winrm/config/service/auth @{Basic="true"}<br/>
 
+- `Mentioned:` On all your future `windows` machines, which we want to automate with ansible,<br/> 
+  we will must to have a dedicated `ansible user` with same credentials,<br/> 
+  therefore, the connection credentials from `/etc/ansible/group_vars/win.yml` file,<br/> 
+  from `ansible-root` machine, will be only for one user!
+
 #### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
 - sudo su -
 - should need to have installed the `ansible`:<br/>
@@ -139,7 +144,7 @@ ansible_winrm_port: `5985`
 - ansible -m win_ping win / ansible win -m win_ping
 
 ### Working with `win_chocolatey` - ansible module
-#### From `ansible-root` machine
+#### From `ansible-root` machine:
 - ansible-doc win_chocolatey
 - ansible win -m win_chocolatey -a 'name=notepadplusplus state=present'
 - cd win_chocolately/
