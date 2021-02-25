@@ -1,6 +1,6 @@
 # Ansible modules
 #### Contents
-- `ansible-root` and `ansible-client`: two up hosts/vm's, mandatory for this demo!
+- `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Get started
 - edit your local `/etc/hosts` file and add inside,<br/> 
@@ -33,8 +33,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible servers -m ping
 
-
-# Working with ansible modules
+#### Working with `ansible modules`
 #### From `ansible-root` machine:
 - sudo su -
 - git clone https://github.com/mihaivirlan/ansible.git
@@ -42,10 +41,13 @@ ansible_python_interpreter=/usr/bin/python3
 - cd ansible-modules/
 - pwd (should be as: `/root/ansible/ansible-modules`)
 - ansible-playbook copy_file_module.yml
-- and so... for each module from the `/root/ansible/ansible-modules` folder
+- and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
 
 
 # Create EC2 instance using Ansible
+#### Contents
+- `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
+
 #### From your aws console `https://us-east-2.console.aws.amazon.com/`:
 - Acces from `Services` menu, the `IAM` create a `user` and generate a `key` for your `new user created`,<br/> 
   or it's generated automatically,<br/> 
@@ -72,10 +74,13 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Inventories
+#### Contents
+- `ansible-root` machine and `ansible-client`: two up vm's/machines,, mandatory for this demo!
+
 #### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
-#### From `ansible-root` machine:
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
 - sudo su -
-- edit your `/etc/hosts` file, and add the ip_addresses with hostnames for your client/servers group instances
+- edit your `/etc/hosts` file, and add the `ip_addresses` with `hostnames` for your `client` group instances/machines
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
 - cd /root/ansible/ansible-inventories
 - ansible-inventory -i inventory --list
