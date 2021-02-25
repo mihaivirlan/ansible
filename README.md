@@ -148,7 +148,8 @@ ansible_winrm_port: `5985`
 - ansible-doc win_chocolatey
 - ansible win -m win_chocolatey -a 'name=notepadplusplus state=present'
 - cd win_chocolately/
-- ansible-playbook win_install_package.yml
+- ansible-playbook install_multiple_packages_sequentially.yml
 
 #### From your `windows` machine:
-- check if all tool mentioned in your `win_install_package.yml`, on `ansible-root` machine, were installed successfully
+- check if all tool mentioned in your `install_multiple_packages_sequentially.yml`,<br/> 
+  on `ansible-root` machine, were installed successfully

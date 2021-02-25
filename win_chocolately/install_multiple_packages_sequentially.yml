@@ -1,6 +1,6 @@
 - hosts: win
   tasks:
-  - name: Install firefox,winscp,curl
+  - name: Install multiple packages sequentially
     win_chocolatey:
       name: '{{ item }}'
       state: present
@@ -8,3 +8,6 @@
     - firefox
     - curl
     - winscp
+    - procexp
+    - putty
+    - windirstat

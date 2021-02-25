@@ -1,6 +1,6 @@
 - hosts: win
   tasks:
-  - name: Uninstall firefox,winscp,curl
+  - name: Uninstall multiple packages
     win_chocolatey:
       name: '{{ item }}'
       state: absent
@@ -8,3 +8,6 @@
     - firefox
     - curl
     - winscp
+    - procexp
+    - putty
+    - windirstat
