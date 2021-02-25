@@ -85,8 +85,8 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Manage Windows / Ansible Winrm
-### From your Windows machine:
-- Create/add a new user on `windows` machine, and assign it to group Administrator:
+### From your `windows` machine:
+- Create/add a new user on `windows` machine, and assign it to group Administrator:<br/>
 	username: `your_username`<br/>
 	password: `your_set_password`<br/>
 	password hint: `your_set_hint`<br/>
