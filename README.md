@@ -1,8 +1,8 @@
 # Ansible modules
-### Contents
+#### Contents
 - `ansible-root` and `ansible-client`: two up hosts/vm's, mandatory for this demo!
 
-### Get started
+#### Get started
 - edit your local `/etc/hosts` file and add inside,<br/> 
   the hostname and ip address for `ansible-root` machine
 
@@ -16,7 +16,7 @@
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-### Install/setting up the git/ansible on your `ansible-root` machine:
+#### Install/setting up the git/ansible on your `ansible-root` machine:
 - sudo su -
 - apt update; apt install ansible
 - apt install git
@@ -35,7 +35,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 
 # Working with ansible modules
-### From `ansible-root` machine:
+#### From `ansible-root` machine:
 - sudo su -
 - git clone https://github.com/mihaivirlan/ansible.git
 - cd path_to_new_cloned_repository
@@ -46,7 +46,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 
 # Create EC2 instance using Ansible
-### From your aws console `https://us-east-2.console.aws.amazon.com/`:
+#### From your aws console `https://us-east-2.console.aws.amazon.com/`:
 - Acces from `Services` menu, the `IAM` create a `user` and generate a `key` for your `new user created`,<br/> 
   or it's generated automatically,<br/> 
   and needed only copy+paste these keys into one new `notepad++` file and save this file into secure location<br/>
@@ -56,7 +56,7 @@ ansible_python_interpreter=/usr/bin/python3
   to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
   later you will need to use this `key pair` in the `task.yml` file
 
-### From `ansible-root` machine:
+#### From `ansible-root` machine:
 - sudo su - 
 - apt install python-pip
 - pip install boto
@@ -72,8 +72,8 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Inventories
-### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
-### From `ansible-root` machine:
+#### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
+#### From `ansible-root` machine:
 - sudo su -
 - edit your `/etc/hosts` file, and add the ip_addresses with hostnames for your client/servers group instances
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
@@ -85,7 +85,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Manage Windows / Ansible Winrm
-### From your `windows` machine:
+#### From your `windows` machine:
 - Create/add a new user on `windows` machine, and assign it to group Administrator:<br/>
 	username: `your_username`<br/>
 	password: `your_set_password`<br/>
@@ -100,7 +100,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
   winrm set winrm/config/service @{AllowUnencrypted="true"}<br/>
   winrm set winrm/config/service/auth @{Basic="true"}<br/>
 
-### From `ansible-root` machine:
+#### From `ansible-root` machine:
 - sudo su -
 - for `centos7`: yum install wget && yum install gcc && yum install python-devel && yum install python-pip
 - or, for `centos8`: dnf install wget && dnf install gcc && dnf install python3-devel && dnf install python3-pip
