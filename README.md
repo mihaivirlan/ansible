@@ -28,7 +28,11 @@ ansible-client ansible_host=192.168.8.108<br/>
 [all:vars]<br/>
 ansible_python_interpreter=/usr/bin/python3
 
+- nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
+#host_key_checking = False
+
 - ansible servers -m ping
+
 
 # Working with ansible modules
 ### From `ansible-root` machine:
@@ -78,3 +82,45 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - ansible servers -i inventory -m ping
 - ansible servers -i inventory -a "df -h"
 - ansible-playbook -i inventory updates_packages.yml
+
+
+# Ansible Manage Windows / Ansible Winrm
+### From your Windows machine:
+- Create/add a new user on `windows` machine, and assign it to group Administrator:
+	username: `your_username`<br/>
+	password: `your_set_password`<br/>
+	password hint: `your_set_hint`<br/>
+
+- From Start search -> Windows defender firewall -> Advanced Settings -><br/>
+  Windows defender Firewall Propeties -> Firewall State -><br/>
+  Inbound connections set as "Allow" for all tabs (Domain Profile/Private Profile/etc...)
+
+- Click to `Start` -> acces and open the `terminal` as a Administrator and set up/run follow:
+  winrm quickconfig -q<br/>
+  winrm set winrm/config/service @{AllowUnencrypted="true"}<br/>
+  winrm set winrm/config/service/auth @{Basic="true"}<br/>
+
+### From `ansible-root` machine:
+- sudo su -
+- for `centos7`: yum install wget && yum install gcc && yum install python-devel && yum install python-pip
+- or, for `centos8`: dnf install wget && dnf install gcc && dnf install python3-devel && dnf install python3-pip
+- pip -V
+- wget https://bootstrap.pypa.io/get-pip.py
+- python3.6 get-pip.py / python get-pip.py
+- pip install pywinrm
+- edit and add in your `/etc/hosts` the hostname and ip_address for your `windows` machine
+- edit `/etc/ansible/hosts` and add to end of the file follow:
+[win]<br/>
+your_windows_hostname
+
+- mkdir `/etc/ansible/group_vars`
+- nano `/etc/ansible/group_vars/win.yml` (and add follow)
+ansible_user: `your_username_created_above`<br/>
+ansible_password: `your_set_password_above`<br/>
+ansible_connection: `winrm`<br/>
+ansible_winrm_transport: `basic`<br/>
+ansible_winrm_port: `5985`
+
+- test connection between your `ansible-root` machine and `windows` machine: `ping windows_hostname`
+- cd `/etc/ansible/group_vars`
+- ansible -m win_ping win
