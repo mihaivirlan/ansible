@@ -1,5 +1,5 @@
 # Ansible modules
-#### Contents
+### Contents
 - `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Get started
@@ -33,7 +33,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible servers -m ping
 
-#### Working with `ansible modules`
+### Working with `ansible modules`
 #### From `ansible-root` machine:
 - sudo su -
 - git clone https://github.com/mihaivirlan/ansible.git
@@ -45,7 +45,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 
 # Create EC2 instance using Ansible
-#### Contents
+### Contents
 - `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
 
 #### From your aws console `https://us-east-2.console.aws.amazon.com/`:
@@ -74,7 +74,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Inventories
-#### Contents
+### Contents
 - `ansible-root` machine and `ansible-client`: two up vm's/machines,, mandatory for this demo!
 
 #### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
@@ -90,7 +90,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 
 # Ansible Manage Windows / Ansible Winrm
-#### Contents
+### Contents
 - `ansible-root` and `windows`: two up hosts/vm's, mandatory for this demo!
 
 #### From your `windows` machine:
@@ -136,4 +136,14 @@ ansible_winrm_port: `5985`
   `ping windows_hostname`
 
 - cd `/etc/ansible/group_vars`
-- ansible -m win_ping win
+- ansible -m win_ping win / ansible win -m win_ping
+
+### Working with `win_chocolatey` - ansible module
+#### From `ansible-root` machine
+- ansible-doc win_chocolatey
+- ansible win -m win_chocolatey -a 'name=notepadplusplus state=present'
+- cd win_chocolately/
+- ansible-playbook win_package.yml
+
+#### From your `windows` machine:
+- check if all tool mentioned in your `win_package.yml` were installed successfully:

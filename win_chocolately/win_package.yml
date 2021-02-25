@@ -1,0 +1,10 @@
+- hosts: win
+  tasks:
+  - name: Install firefox,winscp,curl
+    win_chocolatey:
+      name: '{{ item }}'
+      state: present
+    loop:
+    - firefox
+    - curl
+    - winscp
