@@ -2,12 +2,9 @@
 - hosts: servers
   become: yes
   tasks:
-  - name: Check the remote host uptime
-    hosts: servers
-    tasks:
-      - name: Execute the Uptime command over Command module
-        register: uptimeoutput
-        command: "uptime"
-
-- debug:
-          var: uptimeoutput.stdout_lines
+  - name: Execute the Uptime command over Command module
+    register: uptimeoutput
+    command: "uptime"
+  - debug:
+      var: uptimeoutput.stdout_lines
+    when: ansible_os_family == "Debian" or ansible_os_family == "RedHat"
