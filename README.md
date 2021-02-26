@@ -153,3 +153,46 @@ ansible_winrm_port: `5985`
 #### From your `windows` machine:
 - check if all tool mentioned in your `install_multiple_packages_sequentially.yml`,<br/> 
   on `ansible-root` machine, were installed successfully
+  
+
+# Ansible Tower steps for instillation on RHEL server
+### Contents
+- `ansible-root` one host/vm, mandatory for this demo!
+
+#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
+- sudo su -
+- yum -y update
+- yum whatprovides netstat
+- yum -y install net-tools
+- yum -y install epel-release wget curl tree vim ansible -y
+- `mkdir /tmp/tower && cd  /tmp/tower`
+- curl -k -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+- ls
+- tar xvf `ansible-tower-setup-latest.tar.gz`
+- ls
+- cd `ansible-tower-setup-3.8.1-1/`
+- nano `inventory` (in this file for a single standalone tower setup (non-cluster),<br/> 
+  just update “admin_password”, “pg_password”)
+
+- ls
+- `./setup.sh`
+- Once setup finish you will be able to access Tower on IP address on server: `https://IPAddress/`
+- `Note:` Default user name to login will be `admin (admin_password)`<br/>
+   and password will be value set in `inventory` file for `admin_password`
+
+- netstat -tulpn
+- Now you have to enter license detail before you can use Tower,<br/> 
+  there are two ways to enter license detail:<br/>
+  Browse license file (that you have acquired from RedHat)<br/>
+  Login with your RedHat account (for a free trail license):<br/>
+  `https://access.redhat.com/`<br/>
+
+  Since we are evaluating we will go with second option.<br/>
+  You must have a RedHat account, free Redhat account will do:<br/>
+  `https://www.redhat.com/en/technologies/management/ansible/try-it/`<br/>
+  `https://access.redhat.com/management/subscriptions`<br/>
+  `https://access.redhat.com/management/subscription_allocations`
+
+#### You may check service status that should be running now:
+- supervisorctl status
+- ansible-tower-service status
