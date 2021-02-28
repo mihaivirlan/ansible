@@ -127,20 +127,19 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - edit and add in your `/etc/hosts` the `hostname` and `ip_address` for your `windows` machine
 - edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
 [win]<br/>
-your_windows_hostname
+windows_hostname
+another_windows_hostname
 
-- mkdir `/etc/ansible/group_vars`
-- nano `/etc/ansible/group_vars/win.yml` (and add follow)<br/>
-ansible_user: `your_username_created_above`<br/>
-ansible_password: `your_set_password_above`<br/>
-ansible_connection: `winrm`<br/>
-ansible_winrm_transport: `basic`<br/>
-ansible_winrm_port: `5985`
+- nano `/etc/ansible/hosts` (and add follow)<br/>
+ansible_user=`your_username_created_above`<br/>
+ansible_password=`your_set_password_above`<br/>
+ansible_connection=`winrm`<br/>
+ansible_winrm_transport=`basic`<br/>
+ansible_winrm_port=`5985`
 
 - test connection between your `ansible-root` machine and `windows` machine:<br/>
   `ping windows_hostname`
 
-- cd `/etc/ansible/group_vars`
 - ansible win -m win_ping
 
 ### Working with `win_chocolatey` - ansible module
