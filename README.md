@@ -127,10 +127,10 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - edit and add in your `/etc/hosts` the `hostname` and `ip_address` for your `windows` machine
 - edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
 [win]<br/>
-windows_hostname
-another_windows_hostname
+windows_hostname<br/>
+another_windows_hostname<br/>
 
-- nano `/etc/ansible/hosts` (and add follow)<br/>
+[win:vars]<br/>
 ansible_user=`your_username_created_above`<br/>
 ansible_password=`your_set_password_above`<br/>
 ansible_connection=`winrm`<br/>
