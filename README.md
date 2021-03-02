@@ -130,12 +130,12 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 windows_hostname<br/>
 another_windows_hostname<br/>
 
-[win:vars]<br/>
-ansible_user=`your_username_created_above`<br/>
-ansible_password=`your_set_password_above`<br/>
-ansible_connection=`winrm`<br/>
-ansible_winrm_transport=`basic`<br/>
-ansible_winrm_port=`5985`
+  [win:vars]<br/>
+  ansible_user=`your_username_created_above`<br/>
+  ansible_password=`your_set_password_above`<br/>
+  ansible_connection=`winrm`<br/>
+  ansible_winrm_transport=`basic`<br/>
+  ansible_winrm_port=`5985`
 
 - test connection between your `ansible-root` machine and `windows` machine:<br/>
   `ping windows_hostname`
