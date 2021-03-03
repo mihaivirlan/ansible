@@ -25,7 +25,7 @@
 - nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
 [servers]<br/>
 ansible-client ansible_host=192.168.8.108<br/>
-[all:vars]<br/>
+[servers:vars]<br/>
 ansible_python_interpreter=/usr/bin/python3
 
 - nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
@@ -126,11 +126,11 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - pip install pywinrm
 - edit and add in your `/etc/hosts` the `hostname` and `ip_address` for your `windows` machine
 - edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
-[win]<br/>
+[windows]<br/>
 windows_hostname<br/>
 another_windows_hostname<br/>
 
-  [win:vars]<br/>
+  [windows:vars]<br/>
   ansible_user=`your_username_created_above`<br/>
   ansible_password=`your_set_password_above`<br/>
   ansible_connection=`winrm`<br/>
