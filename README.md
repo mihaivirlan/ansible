@@ -195,3 +195,39 @@ another_windows_hostname<br/>
 #### You may check service status that should be running now:
 - supervisorctl status
 - ansible-tower-service status
+
+
+# Ansible Roles
+### Contents
+- `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
+
+#### Get started
+- edit your local `/etc/hosts` file and add inside,<br/> 
+  the hostname and ip address for `ansible-root` machine
+
+- open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
+- after connected, from `ansible-root` machine,<br/>
+  edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
+  generate the ssh key,<br/>
+  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id ansible-client`
+
+- after transfer successfully ssh public key,<br/>
+  try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
+  you should connect/login successfully through ssh, if you successfully transferred the public key
+
+#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
+- edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
+[linux]<br/>
+linux_hostname<br/>
+another_linux_hostname<br/>
+
+  [linux:vars]<br/>
+  ansible_python_interpreter=/usr/bin/python3
+
+- nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
+#host_key_checking = False
+
+- ansible linux -m ping
+
+
+
