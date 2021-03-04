@@ -216,10 +216,12 @@ another_windows_hostname<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
 #### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
+- sudo su -
+- edit your `/etc/hosts` file, and add the `ip_addresses` with `hostnames` for your `client` group instances/machines
 - edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
 [linux]<br/>
 linux_hostname<br/>
-another_linux_hostname<br/>
+another_linux_hostname...<br/>
 
   [linux:vars]<br/>
   ansible_python_interpreter=/usr/bin/python3
@@ -228,6 +230,47 @@ another_linux_hostname<br/>
 #host_key_checking = False
 
 - ansible linux -m ping
+- cd /etc/ansible/
+- ls -la
+- cd roles/
+- ansible-galaxy init apache --offline
+- ls -la
+- cd apache
+-  ls -l / tree
+- cd tasks
+- nano main.yml (uncomment below lines)
+#- include: install.yml
+#- include: configure.yml
+#- include: service.yml
 
+- touch install.yml
+- nano install.yml (uncomment below lines)
+#- name: install apache
+   #yum:
+     #name: httpd
+     #state: latest
 
+- touch configure.yml
+- nano configure.yml (uncomment below lines)
+#- name: httpd.conf file
+   #copy: src=httpd.conf dest:=/etc/httpd/conf/httpd.conf
+   #notify:
+     #- restart apache service
 
+#- name: send index.html
+  #copy: src=index.html dest=/var/www/html/index.html
+
+- touch service.yml
+- nano service.yml (uncomment below lines)
+
+#### Describe the ansible role, for example `apache` role:
+- `defaults` = Data about the role / application. Default variables.
+- `files` = Put the static files here. Files will then be copied on `remote machines`
+- `handlers` = Tasks which are based on some actions. Triggers.<br/>
+   Example: in case my httpd.conf changes, it should trigger service restart.
+
+- `meta` = Information about the role. Author, supported platforms, etc. Dependencies, if any.
+- `tasks` = Core logic or code. Installing package, coping files, etc.
+- `templates` = Similar to files except that templates support dynamic files. Jinja2 - template language.
+- `vars` = Both vars and defaults stores variable.<br/>
+   Variables stored under "vars" has got higher prioprity and difficult to override.
