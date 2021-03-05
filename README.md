@@ -4,7 +4,7 @@
 
 #### Get started
 - edit your local `/etc/hosts` file and add inside,<br/> 
-  the hostname and ip address for `ansible-root` machine
+  the `ip address` and `hostname` for `ansible-root` machine
 
 - open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
 - after connected, from `ansible-root` machine,<br/>
@@ -118,13 +118,26 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - should need to have installed the `ansible`:<br/>
   https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-centos-7
 
-- for `centos7`: yum install wget && yum install gcc && yum install python-devel && yum install python-pip
-- or, for `centos8`: dnf install wget && dnf install gcc && dnf install python3-devel && dnf install python3-pip
+#### For `centos7`: 
+- yum install wget && yum install gcc && yum install python-devel && yum install python-pip && yum install python3-virtualenv
+- yum install python2-winrm
+- pip install python2-winrm
+- pip3 install python2-winrm
+- pip3 install pywinrm
+
+#### For `centos8`: 
+- dnf install wget && dnf install gcc && dnf install python3-devel && dnf install python3-pip && dnf install python3-virtualenv
+- dnf install python2-winrm
+- pip install python2-winrm
+- pip3 install python2-winrm
+- pip3 install pywinrm
+
+#### For both `centos` versions:
 - pip -V
 - wget https://bootstrap.pypa.io/get-pip.py
 - python3.6 get-pip.py / python get-pip.py
 - pip install pywinrm
-- edit and add in your `/etc/hosts` the `hostname` and `ip_address` for your `windows` machine
+- edit and add in your `/etc/hosts` the `ip_address` and `hostname` for your `windows` machine
 - edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
 [windows]<br/>
 windows_hostname<br/>
