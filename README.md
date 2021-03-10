@@ -211,70 +211,14 @@ another_windows_hostname<br/>
 
 
 # Ansible Roles
-### Contents
-- `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
-
-#### Get started
-- edit your local `/etc/hosts` file and add inside,<br/> 
-  the hostname and ip address for `ansible-root` machine
-
-- open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
-- after connected, from `ansible-root` machine,<br/>
-  edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
-  generate the ssh key,<br/>
-  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id ansible-client`
-
-- after transfer successfully ssh public key,<br/>
-  try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
-  you should connect/login successfully through ssh, if you successfully transferred the public key
-
-#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
-- sudo su -
-- edit your `/etc/hosts` file, and add the `ip_addresses` with `hostnames` for your `client` group instances/machines
-- edit `/etc/ansible/hosts` and add to end of the file follow:<br/>
-[linux]<br/>
-linux_hostname<br/>
-another_linux_hostname...<br/>
-
-  [linux:vars]<br/>
-  ansible_python_interpreter=/usr/bin/python3
-
-- nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
-#host_key_checking = False
-
-- ansible linux -m ping
+#### Generate the ansible roles:
 - cd /etc/ansible/
 - ls -la
 - cd roles/
 - ansible-galaxy init apache --offline
 - ls -la
-- cd apache
--  ls -l / tree
-- cd tasks
-- nano main.yml (uncomment below lines)<br/>
-#- include: install.yml<br/>
-#- include: configure.yml<br/>
-#- include: service.yml
-
-- touch install.yml
-- nano install.yml (uncomment below lines)<br/>
-#- name: install apache<br/>
-   #yum:<br/>
-     #name: httpd<br/>
-     #state: latest
-
-- touch configure.yml
-- nano configure.yml (uncomment below lines)<br/>
-#- name: httpd.conf file<br/>
-   #copy: src=httpd.conf dest:=/etc/httpd/conf/httpd.conf<br/>
-   #notify:<br/>
-     #- restart apache service<br/>
-
-#- name: send index.html<br/>
-  #copy: src=index.html dest=/var/www/html/index.html
-
-- touch service.yml
-- nano service.yml (uncomment below lines)
+- cd ansible
+- and work with new generated ansible role...
 
 #### Describe the ansible role, for example `apache` role:
 - `defaults` = Data about the role / application. Default variables.
