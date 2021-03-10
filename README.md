@@ -252,25 +252,25 @@ another_linux_hostname...<br/>
 -  ls -l / tree
 - cd tasks
 - nano main.yml (uncomment below lines)
-#- include: install.yml
-#- include: configure.yml
+#- include: install.yml<br/>
+#- include: configure.yml<br/>
 #- include: service.yml
 
 - touch install.yml
 - nano install.yml (uncomment below lines)
-#- name: install apache
-   #yum:
-     #name: httpd
+#- name: install apache<br/>
+   #yum:<br/>
+     #name: httpd<br/>
      #state: latest
 
 - touch configure.yml
 - nano configure.yml (uncomment below lines)
-#- name: httpd.conf file
-   #copy: src=httpd.conf dest:=/etc/httpd/conf/httpd.conf
-   #notify:
-     #- restart apache service
+#- name: httpd.conf file<br/>
+   #copy: src=httpd.conf dest:=/etc/httpd/conf/httpd.conf<br/>
+   #notify:<br/>
+     #- restart apache service<br/>
 
-#- name: send index.html
+#- name: send index.html<br/>
   #copy: src=index.html dest=/var/www/html/index.html
 
 - touch service.yml
