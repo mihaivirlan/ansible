@@ -43,7 +43,7 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook copy_file_module.yml
 - and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
 
-### Working with `tasks-control`
+### Working with `task-control`
 #### From `ansible-root` machine:
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
@@ -76,6 +76,16 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible linux -a "sudo rm /var/www/html/index.html"
 - ansible linux -a "ls -l /var/www/html"
 - ansible-playbook handlers.yml
+
+- `Gathering Facts` are importants when we work with `templates` and not only:<br/>
+   This module takes care of executing the configured facts modules, the default is to use the setup module.<br/>
+   This module is automatically called by playbooks to gather useful variables about remote hosts that can be used in playbooks.<br/>
+   It can also be executed directly by /usr/bin/ansible to check what variables are available to a host.<br/>
+   Ansible provides many facts about the system, automatically.<br/>
+   Ansible collects pretty much all the information about the remote hosts as it runs a playbook.<br/> 
+   The task of collecting this remote system information is called as Gathering Facts by ansible,<br/>
+   and the details collected are generally known as facts or variables.
+
 
 # Create EC2 instance using Ansible
 ### Contents
