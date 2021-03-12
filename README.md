@@ -38,10 +38,23 @@ ansible_python_interpreter=/usr/bin/python3
 - sudo su -
 - git clone https://github.com/mihaivirlan/ansible.git
 - cd path_to_new_cloned_repository
-- cd ansible-modules/
+- cd `ansible-modules`
 - pwd (should be as: `/root/ansible/ansible-modules`)
 - ansible-playbook copy_file_module.yml
 - and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
+
+### Working with `tasks-control`
+#### From `ansible-root` machine:
+- sudo su -
+- git clone https://github.com/mihaivirlan/ansible.git
+- cd path_to_new_cloned_repository
+- cd `task-control`
+- pwd (should be as: `/root/ansible/task-control`)
+- ansible linux -a "sudo systemctl stop crond"
+- ansible linux -a "sudo systemctl status crond"
+- ansible-playbook restart_sshd_when_crond_is_running.yml
+
+#- and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
 
 
 # Create EC2 instance using Ansible
@@ -67,7 +80,8 @@ ansible_python_interpreter=/usr/bin/python3
 aws_access_key_id = `paste_your_generated_key_for_user_created_above_account`<br/>
 aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account`
 
-- cd /root/ansible/create-ec2-instance-using-ansible
+- cd `/root/ansible/create-ec2-instance-using-ansible`
+- ls -l
 - ansible-playbook task.yml
 - after task running successfully, check in your aws console `https://us-east-2.console.aws.amazon.com/`,<br/> 
   if the instance was successfully created.
@@ -82,7 +96,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - sudo su -
 - edit your `/etc/hosts` file, and add the `ip_addresses` with `hostnames` for your `client` group instances/machines
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
-- cd /root/ansible/ansible-inventories
+- cd `/root/ansible/ansible-inventories`
 - ansible-inventory -i inventory --list
 - ansible servers -i inventory -m ping
 - ansible servers -i inventory -a "df -h"
@@ -159,7 +173,7 @@ another_windows_hostname<br/>
 #### From `ansible-root` machine:
 - ansible-doc win_chocolatey
 - ansible win -m win_chocolatey -a 'name=notepadplusplus state=present'
-- cd win_chocolately/
+- cd `win_chocolately`
 - ansible-playbook install_multiple_packages_sequentially.yml
 
 #### From your `windows` machine:
@@ -212,13 +226,13 @@ another_windows_hostname<br/>
 
 # Ansible Roles
 #### Generate the ansible roles:
-- cd /etc/ansible/
+- cd `/etc/ansible`
 - ls -la
-- cd roles/
+- cd `roles`
 - ansible-galaxy init apache --offline
 - ls -la
-- cd ansible
-- and work with new generated ansible role...
+- cd `apache`,<br/>
+  and work with new generated `apache` role...
 
 #### Describe the ansible role, for example `apache` role:
 - `defaults` = Data about the role / application. Default variables.
