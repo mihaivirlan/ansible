@@ -36,8 +36,8 @@ ansible_python_interpreter=/usr/bin/python3
 ### Working with `ansible modules`
 #### From `ansible-root` machine:
 - sudo su -
-- git clone https://github.com/mihaivirlan/ansible.git
-- cd path_to_new_cloned_repository
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
 - cd `ansible-modules`
 - pwd (should be as: `/root/ansible/ansible-modules`)
 - ansible-playbook copy_file_module.yml
@@ -46,15 +46,17 @@ ansible_python_interpreter=/usr/bin/python3
 ### Working with `tasks-control`
 #### From `ansible-root` machine:
 - sudo su -
-- git clone https://github.com/mihaivirlan/ansible.git
-- cd path_to_new_cloned_repository
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
 - cd `task-control`
 - pwd (should be as: `/root/ansible/task-control`)
+- ansible-playbook advanced_when_usage.yml
+- ansible-playbook ifsize.yml
+- ansible-playbook loopservices.yml
+
 - ansible linux -a "sudo systemctl stop crond"
 - ansible linux -a "sudo systemctl status crond"
 - ansible-playbook restart_sshd_when_crond_is_running.yml
-
-#- and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
 
 
 # Create EC2 instance using Ansible
@@ -130,7 +132,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 #### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
 - sudo su -
 - should need to have installed the `ansible`:<br/>
-  https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-centos-7
+  `https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-centos-7`
 
 #### For `centos7`: 
 - yum install wget && yum install gcc && yum install python-devel && yum install python-pip && yum install python3-virtualenv
@@ -148,7 +150,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 #### For both `centos` versions:
 - pip -V
-- wget https://bootstrap.pypa.io/get-pip.py
+- wget `https://bootstrap.pypa.io/get-pip.py`
 - python3.6 get-pip.py / python get-pip.py
 - pip install pywinrm
 - edit and add in your `/etc/hosts` the `ip_address` and `hostname` for your `windows` machine
