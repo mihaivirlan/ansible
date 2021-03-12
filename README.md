@@ -50,6 +50,7 @@ ansible_python_interpreter=/usr/bin/python3
 - cd `path_to_new_cloned_repository`
 - cd `task-control`
 - pwd (should be as: `/root/ansible/task-control`)
+
 - ansible-playbook advanced_when_usage.yml
 - ansible-playbook ifsize.yml
 - ansible-playbook loopservices.yml
@@ -57,7 +58,17 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible linux -a "sudo systemctl stop crond"
 - ansible linux -a "sudo systemctl status crond"
 - ansible-playbook restart_sshd_when_crond_is_running.yml
+- ansible linux -a "sudo systemctl start crond"
+- ansible linux -a "sudo systemctl status crond"
+- ansible-playbook restart_sshd_when_crond_is_running.yml
 
+- ansible-playbook when_multiple.yml
+- ansible linux -m setup -a "filter=ansible_distribution"
+- ansible linux -m setup -a "filter=ansible_memfree_mb"
+
+- ansible linux -a "sudo systemctl status httpd"
+- ansible-playbook when_multiple_complex.yml
+- ansible linux -a "sudo systemctl status httpd"
 
 # Create EC2 instance using Ansible
 ### Contents
