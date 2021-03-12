@@ -70,6 +70,13 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook when_multiple_complex.yml
 - ansible linux -a "sudo systemctl status httpd"
 
+- touch /tmp/index.html
+- ansible-playbook handlers.yml
+- ansible linux -a "ls -l /var/www/html"
+- ansible linux -a "sudo rm /var/www/html/index.html"
+- ansible linux -a "ls -l /var/www/html"
+- ansible-playbook handlers.yml
+
 # Create EC2 instance using Ansible
 ### Contents
 - `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
