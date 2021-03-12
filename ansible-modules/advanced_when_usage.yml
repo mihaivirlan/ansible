@@ -1,0 +1,16 @@
+- name: when demo
+  gather_facts: yes
+  hosts: linux
+  become: yes
+  vars:
+    supported_distros:
+      - RedHat
+      #- Debian
+      - CentOS
+      - Fedora
+  tasks:
+    - name: install RH family specific packages
+      yum:
+        name: nginx
+        state: present
+      when: ansible_distribution in supported_distros
