@@ -1,0 +1,8 @@
+- name: test command result
+  hosts: linux
+  become: true
+  tasks:
+    - name: check a fact
+      debug:
+        msg: echo today is 29
+      when: '"29" in ansible_date_time.day'
