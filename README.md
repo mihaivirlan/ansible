@@ -293,6 +293,6 @@ another_windows_hostname<br/>
 - ansible-playbook vsftpd-template.yml
 - ansible `ansible-client` -a "sudo cat /etc/vsftpd/vsftpd.conf"
 
-#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2 template was successfully copied:
+#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
 - ls -l /etc/vsftpd
 - cat /etc/vsftpd/vsftpd.conf
