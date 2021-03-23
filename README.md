@@ -255,6 +255,9 @@ another_windows_hostname<br/>
 
 
 # Ansible Roles
+### Contents
+- `ansible-root` one host/vm, mandatory for this demo!
+
 #### Generate the ansible roles:
 - cd `/etc/ansible`
 - ls -la
@@ -275,3 +278,21 @@ another_windows_hostname<br/>
 - `templates` = Similar to files except that templates support dynamic files. Jinja2 - template language.
 - `vars` = Both vars and defaults stores variable.<br/>
    Variables stored under "vars" has got higher prioprity and difficult to override.
+
+# Managing files
+### Contents
+- `ansible-root` machine and `ansible-client`: two up vm's/machines,, mandatory for this demo!
+
+#### Using Templates and Jinja2
+#### From `ansible-root` machine:
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `managing-files`
+- pwd (should be as: `/root/ansible/managing-files`)
+- ansible-playbook vsftpd-template.yml
+- ansible `ansible-client` -a "sudo cat /etc/vsftpd/vsftpd.conf"
+
+#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2 template was successfully copied:
+- ls -l /etc/vsftpd
+- cat /etc/vsftpd/vsftpd.conf
