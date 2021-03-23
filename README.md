@@ -211,7 +211,7 @@ another_windows_hostname<br/>
   on `ansible-root` machine, were installed successfully
   
 
-# Ansible Tower steps for instillation on RHEL server
+# Ansible Tower steps for installation on RHEL server
 ### Contents
 - `ansible-root` one host/vm, mandatory for this demo!
 
