@@ -290,8 +290,15 @@ another_windows_hostname<br/>
 - cd `path_to_new_cloned_repository`
 - cd `managing-files`
 - pwd (should be as: `/root/ansible/managing-files`)
+
 - ansible-playbook vsftpd-template.yml
-- ansible `ansible-client` -a "sudo cat /etc/vsftpd/vsftpd.conf"
+- ansible `ansible-client` -a "cat /etc/vsftpd/vsftpd.conf"
+
+- ansible `ansible-client` -a "cat /etc/hosts"
+- ansible-playbook hostsfile.yml
+
+- ansible-playbook copy.yml
+- ansible `linux` -a "cat /tmp/hosts"
 
 #### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
 - ls -l /etc/vsftpd
