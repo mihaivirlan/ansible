@@ -281,7 +281,7 @@ another_windows_hostname<br/>
 
 # Managing files
 ### Contents
-- `ansible-root` machine and `ansible-client`: two up vm's/machines,, mandatory for this demo!
+- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Using Templates and Jinja2
 #### From `ansible-root` machine:
