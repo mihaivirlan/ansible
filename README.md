@@ -292,14 +292,28 @@ another_windows_hostname<br/>
 - pwd (should be as: `/root/ansible/managing-files`)
 
 - ansible-playbook vsftpd-template.yml
-- ansible `ansible-client` -a "cat /etc/vsftpd/vsftpd.conf"
+- ansible `linux` -a "cat /etc/vsftpd/vsftpd.conf"
 
-- ansible `ansible-client` -a "cat /etc/hosts"
+#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
+- ls -l /etc/vsftpd
+- cat /etc/vsftpd/vsftpd.conf
+
+#### From `ansible-root` machine:
+- ansible `linux` -a "cat /etc/hosts"
 - ansible-playbook hostsfile.yml
 
 - ansible-playbook copy.yml
 - ansible `linux` -a "cat /tmp/hosts"
 
-#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
-- ls -l /etc/vsftpd
-- cat /etc/vsftpd/vsftpd.conf
+- tree files
+- tree vars
+- cat vars/groups
+- cat vars/users
+- cat setup_users.yml
+- ansible-playbook setup_users.yml
+- ansible `linux` -a "sudo cat /etc/group"
+- ansible `linux` -a "sudo ls -la /home"
+
+#### Test the ssh connection with new created users, from your `ansible-root` machine to `ansible-client` machine
+- ssh `linda@ansible-client` / ssh `lisa@ansible-client`
+
