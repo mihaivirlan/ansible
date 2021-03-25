@@ -259,9 +259,19 @@ another_windows_hostname<br/>
 - `ansible-root` one host/vm, mandatory for this demo!
 
 #### Generate the ansible roles:
-- cd `/etc/ansible`
+##### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
+- ansible-galaxy search `nginx`
+- ansible-galaxy search nginx --platform EL | grep geerl
+- ansible-galaxy install geerlingguy.nginx
+- cd `/home/your_username/.ansible/roles/geerlingguy.nginx/roles/`
 - ls -la
-- cd `roles`
+- ls -l vars/
+- cat tasks/main.yml
+- cat tasks/setup-RedHat.yml
+- ansible-playbook nginx-role.yml
+
+- cd `/etc/ansible/roles`
+- ls -la
 - ansible-galaxy init apache --offline
 - ls -la
 - cd `apache`,<br/>
