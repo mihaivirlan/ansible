@@ -256,10 +256,15 @@ another_windows_hostname<br/>
 
 # Ansible Roles
 ### Contents
-- `ansible-root` one host/vm, mandatory for this demo!
+- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Generate the ansible roles with `Ansible Galaxy`:
 ##### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `managing-files`
+- pwd (should be as: `/root/ansible/managing-files`)
 - ansible-galaxy search `nginx`
 - ansible-galaxy search nginx --platform EL | grep geerl
 - ansible-galaxy install geerlingguy.nginx
@@ -268,6 +273,9 @@ another_windows_hostname<br/>
 - ls -l vars/
 - cat tasks/main.yml
 - cat tasks/setup-RedHat.yml
+- cd ~
+- cd `/root/ansible/managing-files`
+- cat nginx-role.yml
 - ansible-playbook nginx-role.yml
 
 - cd `/etc/ansible/roles`
