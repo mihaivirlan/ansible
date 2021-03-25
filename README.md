@@ -286,6 +286,10 @@ another_windows_hostname<br/>
   and work with new generated `apache` role...
 
 #### Writing Ansible `Custom Roles`
+- ansible-galaxy init hello
+- ls -la
+- cd hello/
+- tree
 
 #### Describe the ansible role, for example `apache` role:
 - `defaults` = Data about the role / application. Default variables.
