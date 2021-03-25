@@ -258,7 +258,7 @@ another_windows_hostname<br/>
 ### Contents
 - `ansible-root` one host/vm, mandatory for this demo!
 
-#### Generate the ansible roles:
+#### Generate the ansible roles with `Ansible Galaxy`:
 ##### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
 - ansible-galaxy search `nginx`
 - ansible-galaxy search nginx --platform EL | grep geerl
@@ -276,6 +276,8 @@ another_windows_hostname<br/>
 - ls -la
 - cd `apache`,<br/>
   and work with new generated `apache` role...
+
+#### Writing Ansible `Custom Roles`
 
 #### Describe the ansible role, for example `apache` role:
 - `defaults` = Data about the role / application. Default variables.
