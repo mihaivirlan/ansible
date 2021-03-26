@@ -286,10 +286,41 @@ another_windows_hostname<br/>
   and work with new generated `apache` role...
 
 #### Writing Ansible `Custom Roles`
-- ansible-galaxy init hello
+- cd ~
+- mkdir roles
+- cd roles/
+- ansible-galaxy init motd
 - ls -la
-- cd hello/
-- tree
+- tree motd
+- cd motd
+- you can edit and add more info about you in the file `meta/main.yml`
+- nano `tasks/main.yml` (and complete like follow, and uncomment the lines)<br/>
+---<br/>
+# tasks file for motd<br/>
+#- name:	copy motd file<br/>
+  #template: <br/>
+    #src: templates/motd.j2<br/>
+    #dest: /etc/motd<br/>
+    #owner: root<br/>
+    #group: root<br/>
+    #mode: 0444
+
+- nano `templates/motd.j2` (and complete like follow)
+Welcome	to {{ ansible_hostname }}<br/>
+
+This file was created on {{ ansible_date_time.date }}<br/>
+Go away	if you have no business	being here<br/>
+
+Contact	{{ system_manager }} if	anything is wrong
+
+- nano `defaults/main.yml` (and complete like follow)
+---<br/>
+# defaults file for motd<br/>
+system_manager:	`your_system_manager_email_address`
+
+- cd ../../managing-files
+- ansible-playbook motd-role.yml
+- ansible linux -a "cat /etc/motd"
 
 #### Describe the ansible role, for example `apache` role:
 - `defaults` = Data about the role / application. Default variables.
