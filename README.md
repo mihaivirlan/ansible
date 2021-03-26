@@ -296,7 +296,7 @@ another_windows_hostname<br/>
 - you can edit and add more info about you in the file `meta/main.yml`
 - nano `tasks/main.yml` (and complete like follow, and uncomment the lines)<br/>
 ---<br/>
-# tasks file for motd<br/>
+#tasks file for motd<br/>
 #- name:	copy motd file<br/>
   #template: <br/>
     #src: templates/motd.j2<br/>
@@ -315,7 +315,7 @@ Contact	{{ system_manager }} if	anything is wrong
 
 - nano `defaults/main.yml` (and complete like follow)
 ---<br/>
-# defaults file for motd<br/>
+#defaults file for motd<br/>
 system_manager:	`your_system_manager_email_address`
 
 - cd ../../managing-files
