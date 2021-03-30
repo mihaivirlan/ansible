@@ -215,7 +215,7 @@ another_windows_hostname<br/>
 ### Contents
 - `ansible-root` one host/vm, mandatory for this demo!
 
-#### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 or > CentOS7.7 (CentOS8), and a RAM memory >= 8192 MB
+#### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 or a greather of CentOS7.7 version, for example - CentOS8, and a memory RAM >= 8192 MB
 #### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS8):
 
 - sudo su -
