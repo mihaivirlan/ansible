@@ -215,12 +215,15 @@ another_windows_hostname<br/>
 ### Contents
 - `ansible-root` one host/vm, mandatory for this demo!
 
-#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
+#### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 > CentOS7.7 (CentOS8), and a RAM memory >= 8192 MB
+#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS8):
+
 - sudo su -
-- yum -y update
-- yum whatprovides netstat
-- yum -y install net-tools
-- yum -y install epel-release wget curl tree vim ansible -y
+- dnf -y update
+- dnf whatprovides netstat
+- dnf -y install net-tools
+- dnf -y install epel-release wget curl tree ansible -y
+- dnf reinstall python3-setuptools
 - `mkdir /tmp/tower && cd  /tmp/tower`
 - curl -k -O https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
 - ls
@@ -232,7 +235,11 @@ another_windows_hostname<br/>
 
 - ls
 - `./setup.sh`
-- Once setup finish you will be able to access Tower on IP address on server: `https://IPAddress/`
+- need to have a httpd server stopped, and nginx server started:<br/>
+  systemctl stop httpd<br/>
+  systemctl start nginx
+
+- Once setup finish you will be able to access Tower on IP address from browser: `https://IPAddress/:80`
 - `Note:` Default user name to login will be `admin (admin_password)`<br/>
    and password will be value set in `inventory` file for `admin_password`
 
@@ -259,7 +266,7 @@ another_windows_hostname<br/>
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Generate the ansible roles with `Ansible Galaxy`:
-##### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
+###### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -321,6 +328,21 @@ system_manager:	`your_system_manager_email_address`
 - cd ../../managing-files
 - ansible-playbook motd-role.yml
 - ansible linux -a "cat /etc/motd"
+
+#### Using `System Roles`
+- sudo yum search system-role
+- sudo yum install rhel-system-roles
+- sudo rpm -ql rhel-system-roles
+- sudo su -
+- cd /usr/share/ansible/roles/
+- ls -l
+- tree rhel-system-roles.network/
+- cd /usr/share/doc/rhel-system-roles-1.0 / cd /usr/share/doc/rhel-system-roles
+- ls -l
+-  cd network/
+- ls -l
+
+
 
 #### Describe the ansible role, for example `apache` role:
 - `defaults` = Data about the role / application. Default variables.
