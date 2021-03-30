@@ -213,7 +213,7 @@ another_windows_hostname<br/>
 
 # Ansible Tower installation on RHEL server
 ### Contents
-- `ansible-root` one host/vm, mandatory for this demo!
+- `ansible-root` one host/vm, and one or more another `ansible-client(s)` mandatory for this demo!
 
 #### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 or a greather of CentOS7.7 version, for example - CentOS8, and a memory RAM >= 8192 MB
 #### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS8):
@@ -262,6 +262,40 @@ another_windows_hostname<br/>
 #### You may check service status that should be running now:
 - supervisorctl status
 - ansible-tower-service status
+
+#### Configuring a Sample Project in `Ansible Tower`
+- Login under your installed `ansible tower`, click `Inventories` option, click `Create a new inventory`,<br/>
+  named for example `project1`, click `Save` button, choose `HOSTS` tab from `Inventories`,<br/>
+  click `Create a new host`, add the name of your `ansible-client` machine, click `Save` button.
+  
+- Choose the `Credentials` option from `Menu`, click `Create a new credential`, 
+  named for example `project1-credentials`, the `ORGANIZATION` select as `Default`,<br/>
+  as `CREDENTIAL TYPE` choose the `Machine` option, after, from `TYPE DETAILS` specify the `USERNAME` and the `PASSWORD`,<br/> 
+  with which you will connect to the `ansible-client` machine,<br/>
+  in `SSH PRIVATE KEY` input copy and paste your `id_pub`,<br/>
+  and in `SIGNED SSH CERTIFICATE` input copy and paste your `id_pub.pub`,<br/>
+  as `PRIVILEGE ESCALATION METHOD` choose `sudo` option,<br/>
+  and in `PRIVILEGE ESCALATION USERNAME` input, type `root`, click `Save` button.
+
+- Choose the `Projects` option from `Menu`, click `Create a new project`,<br/>
+  named for example `project1-project`, from `SCM TYPE` choose the `Git` option,<br/>
+  in `SCM URL` input, paste your github repository created,<br/>
+  for example in my case it will be: `https://github.com/mihaivirlan/ansible`, click `Save` button.
+
+- Choose the `Templates` option from `Menu`, click `Create a new Job Template`,<br/>
+  named for example `project1-template`, from `JOB TYPE` choose `Run` option,<br/>
+  from `INVENTORY` choose `project1`, from `PROJECT` choose `project1-project`,<br/>
+  and from `PLAYBOOK` choose the certain `playbook` from your repository_url,<br/> 
+  in my case can choose the `ansible-modules/check_disk_space_usage.yml`,
+  from `CREDENTIALS` choose `project1-credentials`, click `Save` button, and `LAUNCH` button.
+
+  Note: First attempt can failed, I mean, when you try to create a `Project`,<br/>
+  in this case, you need to go again in `Project` option from `Menu`,<br/> 
+  and click to files icon of `project1-project`, after that, you will see that the project take a copy<br/> 
+  (something like - `project1-project@7:18:48 PM`),<br/>
+  and it should be ok, should connect to your github repository,<br/> 
+  and after successfully connected you can delete first version for project - `project1-project`.
+  
 
 
 # Ansible Roles
