@@ -211,11 +211,11 @@ another_windows_hostname<br/>
   on `ansible-root` machine, were installed successfully
   
 
-# Ansible Tower steps for installation on RHEL server
+# Ansible Tower installation on RHEL server
 ### Contents
 - `ansible-root` one host/vm, mandatory for this demo!
 
-#### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 > CentOS7.7 (CentOS8), and a RAM memory >= 8192 MB
+#### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 or > CentOS7.7 (CentOS8), and a RAM memory >= 8192 MB
 #### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS8):
 
 - sudo su -
@@ -235,13 +235,16 @@ another_windows_hostname<br/>
 
 - ls
 - `./setup.sh`
-- need to have a httpd server stopped, and nginx server started:<br/>
+- need to have a `httpd` server stopped, and `nginx` server started:<br/>
   systemctl stop httpd<br/>
   systemctl start nginx
 
-- Once setup finish you will be able to access Tower on IP address from browser: `https://IPAddress/:80`
+- Once setup finish you will be able to access Tower on IP address from browser: `https://your_ip_address/:80`
 - `Note:` Default user name to login will be `admin (admin_password)`<br/>
    and password will be value set in `inventory` file for `admin_password`
+
+- After login successfully on your `ansible tower` from browser you must need to have a generated/created/downloaded `subscription`<br/>,
+  from here: https://access.redhat.com/management/subscription_allocations
 
 - netstat -tulpn
 - Now you have to enter license detail before you can use Tower,<br/> 
