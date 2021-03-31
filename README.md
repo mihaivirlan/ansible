@@ -142,7 +142,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - ansible -i inventory all --list-hosts
 
 
-# Ansible Manage Windows / Ansible Winrm
+# Ansible Winrm (Windows machines management)
 ### Contents
 - `ansible-root` and `windows`: two up hosts/vm's, mandatory for this demo!
 
@@ -208,7 +208,7 @@ another_windows_hostname<br/>
 
 - ansible win -m win_ping
 
-### Working with `win_chocolatey` - ansible module
+### Working with `win_chocolatey` - ansible module for Windows machines management
 #### From `ansible-root` machine:
 - ansible-doc win_chocolatey
 - ansible win -m win_chocolatey -a 'name=notepadplusplus state=present'
