@@ -33,7 +33,6 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible servers -m ping
 
-### Working with `ansible modules`
 #### From `ansible-root` machine:
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
@@ -43,7 +42,8 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook copy_file_module.yml
 - and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
 
-### Working with `task-control`
+
+# Ansible tasks-control
 #### From `ansible-root` machine:
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
@@ -119,7 +119,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 
 # Ansible Inventories
 ### Contents
-- `ansible-root` machine and `ansible-client`: two up vm's/machines,, mandatory for this demo!
+- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
 #### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
@@ -131,6 +131,15 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - ansible servers -i inventory -m ping
 - ansible servers -i inventory -a "df -h"
 - ansible-playbook -i inventory updates_packages.yml
+
+#### Setting up Static Inventory
+#### From `ansible-root` machine:
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `cd ansible-inventories/install/`
+- pwd (should be as: `/root/ansible/ansible-inventories/install/`)
+- ansible -i inventory all --list-hosts
 
 
 # Ansible Manage Windows / Ansible Winrm
