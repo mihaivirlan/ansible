@@ -1,4 +1,24 @@
+# Ansible Ad Hoc Commands
+- Use `ansible-doc -l` for a list of modules currently available
+- Find more info about certain module type: ansible-doc `user`
+- ansible `linux` -m `command` -a 'cat /etc/hosts'
+- ansible `linux` -m `user` -a 'name=lisa'
+- ansible `linux` -m `command` -a 'id lisa'
+- ansible `linux` -m `user` -a 'name=lisa state=absent'
+- ansible `linux` -m `command` -a 'id lisa'
+- ansible `linux` -m `copy` -a 'content="hello world" dest=/tmp/motd'
+- ansible `linux` -m `shell` -a 'cat /tmp/motd'
+
+
 # Ansible modules
+### Essential Ansible Modules
+- `ping`: ansible `linux` `ping`
+- `service`: ansible `linux` -m `service` -a "name=httpd state=started"
+- `command`: ansible `linux` -m `command` -a "/sbin/reboot -t now"
+- `shell`: ansible `linux` -m `shell` -a set
+- `raw`: runs a command on a remote host without a need for Python
+- `copy`: ansible `linux` -m `copy` -a 'content="hello world" dest=/tmp/motd'
+
 ### Contents
 - `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
@@ -31,7 +51,7 @@ ansible_python_interpreter=/usr/bin/python3
 - nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
 #host_key_checking = False
 
-- ansible servers -m ping
+- ansible servers -m `ping`
 
 #### From `ansible-root` machine:
 - sudo su -
@@ -63,8 +83,8 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook restart_sshd_when_crond_is_running.yml
 
 - ansible-playbook when_multiple.yml
-- ansible linux -m setup -a "filter=ansible_distribution"
-- ansible linux -m setup -a "filter=ansible_memfree_mb"
+- ansible linux -m `setup` -a "filter=ansible_distribution"
+- ansible linux -m `setup` -a "filter=ansible_memfree_mb"
 
 - ansible linux -a "sudo systemctl status httpd"
 - ansible-playbook when_multiple_complex.yml
@@ -72,9 +92,9 @@ ansible_python_interpreter=/usr/bin/python3
 
 - touch /tmp/index.html
 - ansible-playbook handlers.yml
-- ansible linux -a "ls -l /var/www/html"
-- ansible linux -a "sudo rm /var/www/html/index.html"
-- ansible linux -a "ls -l /var/www/html"
+- ansible `linux` -a "ls -l /var/www/html"
+- ansible `linux` -a "sudo rm /var/www/html/index.html"
+- ansible `linux` -a "ls -l /var/www/html"
 - ansible-playbook handlers.yml
 
 - `Gathering Facts` are importants when we work with `templates` and not only:<br/>
@@ -128,8 +148,8 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
 - cd `/root/ansible/ansible-inventories`
 - ansible-inventory -i inventory --list
-- ansible servers -i inventory -m ping
-- ansible servers -i inventory -a "df -h"
+- ansible `servers` -i inventory -m `ping`
+- ansible `servers` -i inventory -a "df -h"
 - ansible-playbook -i inventory updates_packages.yml
 
 #### Setting up Static Inventory
@@ -139,7 +159,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - cd `path_to_new_cloned_repository`
 - cd `cd ansible-inventories/install/`
 - pwd (should be as: `/root/ansible/ansible-inventories/install/`)
-- ansible -i inventory all --list-hosts
+- ansible -i inventory `all` --list-hosts
 
 
 # Ansible Winrm (Windows machines management)
@@ -206,12 +226,12 @@ another_windows_hostname<br/>
 - test connection between your `ansible-root` machine and `windows` machine:<br/>
   `ping windows_hostname`
 
-- ansible win -m win_ping
+- ansible `win` -m `win_ping`
 
 ### Working with `win_chocolatey` - ansible module for Windows machines management
 #### From `ansible-root` machine:
 - ansible-doc win_chocolatey
-- ansible win -m win_chocolatey -a 'name=notepadplusplus state=present'
+- ansible `win` -m `win_chocolatey` -a 'name=notepadplusplus state=present'
 - cd `win_chocolately`
 - ansible-playbook install_multiple_packages_sequentially.yml
 
@@ -319,8 +339,8 @@ another_windows_hostname<br/>
 - cd `managing-files`
 - pwd (should be as: `/root/ansible/managing-files`)
 - ansible-galaxy search `nginx`
-- ansible-galaxy search nginx --platform EL | grep geerl
-- ansible-galaxy install geerlingguy.nginx
+- ansible-galaxy search `nginx` --platform EL | grep `geerl`
+- ansible-galaxy install g`eerlingguy.nginx`
 - cd `/home/your_username/.ansible/roles/geerlingguy.nginx/roles/`
 - ls -la
 - ls -l vars/
@@ -333,7 +353,7 @@ another_windows_hostname<br/>
 
 - cd `/etc/ansible/roles`
 - ls -la
-- ansible-galaxy init apache --offline
+- ansible-galaxy init `apache` --offline
 - ls -la
 - cd `apache`,<br/>
   and work with new generated `apache` role...
@@ -342,7 +362,7 @@ another_windows_hostname<br/>
 - cd ~
 - mkdir roles
 - cd roles/
-- ansible-galaxy init motd
+- ansible-galaxy init `motd`
 - ls -la
 - tree motd
 - cd motd
@@ -376,9 +396,9 @@ system_manager:	`your_system_manager_email_address`
 - ansible linux -a "cat /etc/motd"
 
 #### Using `System Roles`
-- sudo yum search system-role
-- sudo yum install rhel-system-roles
-- sudo rpm -ql rhel-system-roles
+- sudo yum search `system-role`
+- sudo yum install `rhel-system-roles`
+- sudo rpm -ql `rhel-system-roles`
 - sudo su -
 - cd /usr/share/ansible/roles/
 - ls -l
