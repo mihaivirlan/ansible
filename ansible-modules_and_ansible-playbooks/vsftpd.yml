@@ -1,0 +1,6 @@
+- name: deploy vsftpd
+  hosts: linux
+  become: true
+  tasks:
+  - name: install vsftpd
+    yum
