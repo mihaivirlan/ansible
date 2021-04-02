@@ -75,20 +75,20 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook ifsize.yml
 - ansible-playbook loopservices.yml
 
-- ansible linux -a "sudo systemctl stop crond"
-- ansible linux -a "sudo systemctl status crond"
+- ansible `linux` -a "sudo systemctl stop crond"
+- ansible `linux` -a "sudo systemctl status crond"
 - ansible-playbook restart_sshd_when_crond_is_running.yml
-- ansible linux -a "sudo systemctl start crond"
-- ansible linux -a "sudo systemctl status crond"
+- ansible `linux` -a "sudo systemctl start crond"
+- ansible `linux` -a "sudo systemctl status crond"
 - ansible-playbook restart_sshd_when_crond_is_running.yml
 
 - ansible-playbook when_multiple.yml
-- ansible linux -m `setup` -a "filter=ansible_distribution"
-- ansible linux -m `setup` -a "filter=ansible_memfree_mb"
+- ansible `linux` -m `setup` -a "filter=ansible_distribution"
+- ansible `linux` -m `setup` -a "filter=ansible_memfree_mb"
 
-- ansible linux -a "sudo systemctl status httpd"
+- ansible `linux` -a "sudo systemctl status httpd"
 - ansible-playbook when_multiple_complex.yml
-- ansible linux -a "sudo systemctl status httpd"
+- ansible `linux` -a "sudo systemctl status httpd"
 
 - touch /tmp/index.html
 - ansible-playbook handlers.yml
@@ -230,7 +230,7 @@ another_windows_hostname<br/>
 
 ### Working with `win_chocolatey` - ansible module for Windows machines management
 #### From `ansible-root` machine:
-- ansible-doc win_chocolatey
+- ansible-doc `win_chocolatey`
 - ansible `win` -m `win_chocolatey` -a 'name=notepadplusplus state=present'
 - cd `win_chocolately`
 - ansible-playbook install_multiple_packages_sequentially.yml
