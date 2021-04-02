@@ -57,10 +57,10 @@ ansible_python_interpreter=/usr/bin/python3
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
-- cd `ansible-modules`
-- pwd (should be as: `/root/ansible/ansible-modules`)
+- cd `ansible-modules_and_ansible_playbooks`
+- pwd (should be as: `/root/ansible/ansible-modules_and_ansible_playbooks`)
 - ansible-playbook copy_file_module.yml
-- and so... for each `ansible module` from the `/root/ansible/ansible-modules` folder
+- and so... for each `ansible module` from the `/root/ansible/ansible-modules_and_ansible_playbooks` folder
 
 
 # Ansible tasks-control
@@ -107,34 +107,137 @@ ansible_python_interpreter=/usr/bin/python3
    and the details collected are generally known as facts or variables.
 
 
-# Create EC2 instance using Ansible
+# Ansible Roles
 ### Contents
-- `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
+- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
-#### From your aws console `https://us-east-2.console.aws.amazon.com/`:
-- Acces from `Services` menu, the `IAM` create a `user` and generate a `key` for your `new user created`,<br/> 
-  or it's generated automatically,<br/> 
-  and needed only copy+paste these keys into one new `notepad++` file and save this file into secure location<br/>
-  later you will need to use this `key` into `.boto` file
+#### Generate the ansible roles with `Ansible Galaxy`:
+###### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `managing-files`
+- pwd (should be as: `/root/ansible/managing-files`)
+- ansible-galaxy search `nginx`
+- ansible-galaxy search `nginx` --platform EL | grep `geerl`
+- ansible-galaxy install g`eerlingguy.nginx`
+- cd `/home/your_username/.ansible/roles/geerlingguy.nginx/roles/`
+- ls -la
+- ls -l vars/
+- cat tasks/main.yml
+- cat tasks/setup-RedHat.yml
+- cd ~
+- cd `/root/ansible/managing-files`
+- cat nginx-role.yml
+- ansible-playbook nginx-role.yml
 
-- check if you have a `key pair` in your aws console, if not have, create one,<br/>
-  to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
-  later you will need to use this `key pair` in the `task.yml` file
+- cd `/etc/ansible/roles`
+- ls -la
+- ansible-galaxy init `apache` --offline
+- ls -la
+- cd `apache`,<br/>
+  and work with new generated `apache` role...
 
-#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
-- sudo su - 
-- apt install python-pip
-- pip install boto
-- nano `.boto`
-[Credentials]<br/>
-aws_access_key_id = `paste_your_generated_key_for_user_created_above_account`<br/>
-aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account`
+#### Writing Ansible `Custom Roles`
+- cd ~
+- mkdir roles
+- cd roles/
+- ansible-galaxy init `motd`
+- ls -la
+- tree motd
+- cd motd
+- you can edit and add more info about you in the file `meta/main.yml`
+- nano `tasks/main.yml` (and complete like follow, and uncomment the lines)<br/>
+---<br/>
+#tasks file for motd<br/>
+#- name:	copy motd file<br/>
+  #template: <br/>
+    #src: templates/motd.j2<br/>
+    #dest: /etc/motd<br/>
+    #owner: root<br/>
+    #group: root<br/>
+    #mode: 0444
 
-- cd `/root/ansible/create-ec2-instance-using-ansible`
+- nano `templates/motd.j2` (and complete like follow)
+Welcome	to {{ ansible_hostname }}<br/>
+
+This file was created on {{ ansible_date_time.date }}<br/>
+Go away	if you have no business	being here<br/>
+
+Contact	{{ system_manager }} if	anything is wrong
+
+- nano `defaults/main.yml` (and complete like follow)
+---<br/>
+#defaults file for motd<br/>
+system_manager:	`your_system_manager_email_address`
+
+- cd ../../managing-files
+- ansible-playbook motd-role.yml
+- ansible linux -a "cat /etc/motd"
+
+#### Using `System Roles`
+- sudo yum search `system-role`
+- sudo yum install `rhel-system-roles`
+- sudo rpm -ql `rhel-system-roles`
+- sudo su -
+- cd /usr/share/ansible/roles/
 - ls -l
-- ansible-playbook task.yml
-- after task running successfully, check in your aws console `https://us-east-2.console.aws.amazon.com/`,<br/> 
-  if the instance was successfully created.
+- tree rhel-system-roles.network/
+- cd /usr/share/doc/rhel-system-roles-1.0 / cd /usr/share/doc/rhel-system-roles
+- ls -l
+-  cd network/
+- ls -l
+
+#### Describe the ansible role, for example `apache` role:
+- `defaults` = Data about the role / application. Default variables.
+- `files` = Put the static files here. Files will then be copied on `remote machines`
+- `handlers` = Tasks which are based on some actions. Triggers.<br/>
+   Example: in case my httpd.conf changes, it should trigger service restart.
+
+- `meta` = Information about the role. Author, supported platforms, etc. Dependencies, if any.
+- `tasks` = Core logic or code. Installing package, coping files, etc.
+- `templates` = Similar to files except that templates support dynamic files. Jinja2 - template language.
+- `vars` = Both vars and defaults stores variable.<br/>
+   Variables stored under "vars" has got higher prioprity and difficult to override.
+   
+
+# Managing files
+### Contents
+- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
+
+#### Using Templates and Jinja2
+#### From `ansible-root` machine:
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `managing-files`
+- pwd (should be as: `/root/ansible/managing-files`)
+
+- ansible-playbook vsftpd-template.yml
+- ansible `linux` -a "cat /etc/vsftpd/vsftpd.conf"
+
+#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
+- ls -l /etc/vsftpd
+- cat /etc/vsftpd/vsftpd.conf
+
+#### From `ansible-root` machine:
+- ansible `linux` -a "cat /etc/hosts"
+- ansible-playbook hostsfile.yml
+
+- ansible-playbook copy.yml
+- ansible `linux` -a "cat /tmp/hosts"
+
+- tree files
+- tree vars
+- cat vars/groups
+- cat vars/users
+- cat setup_users.yml
+- ansible-playbook setup_users.yml
+- ansible `linux` -a "sudo cat /etc/group"
+- ansible `linux` -a "sudo ls -la /home"
+
+#### Test the ssh connection with new created users, from your `ansible-root` machine to `ansible-client` machine
+- ssh `linda@ansible-client` / ssh `lisa@ansible-client`
 
 
 # Ansible Inventories
@@ -238,7 +341,37 @@ another_windows_hostname<br/>
 #### From your `windows` machine:
 - check if all tool mentioned in your `install_multiple_packages_sequentially.yml`,<br/> 
   on `ansible-root` machine, were installed successfully
-  
+
+
+# Create EC2 instance using Ansible
+### Contents
+- `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
+
+#### From your aws console `https://us-east-2.console.aws.amazon.com/`:
+- Acces from `Services` menu, the `IAM` create a `user` and generate a `key` for your `new user created`,<br/> 
+  or it's generated automatically,<br/> 
+  and needed only copy+paste these keys into one new `notepad++` file and save this file into secure location<br/>
+  later you will need to use this `key` into `.boto` file
+
+- check if you have a `key pair` in your aws console, if not have, create one,<br/>
+  to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
+  later you will need to use this `key pair` in the `task.yml` file
+
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
+- sudo su - 
+- apt install python-pip
+- pip install boto
+- nano `.boto`
+[Credentials]<br/>
+aws_access_key_id = `paste_your_generated_key_for_user_created_above_account`<br/>
+aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account`
+
+- cd `/root/ansible/create-ec2-instance-using-ansible`
+- ls -l
+- ansible-playbook task.yml
+- after task running successfully, check in your aws console `https://us-east-2.console.aws.amazon.com/`,<br/> 
+  if the instance was successfully created.
+
 
 # Ansible Tower installation on RHEL server
 ### Contents
@@ -315,7 +448,7 @@ another_windows_hostname<br/>
   named for example `project1-template`, from `JOB TYPE` choose `Run` option,<br/>
   from `INVENTORY` choose `project1`, from `PROJECT` choose `project1-project`,<br/>
   and from `PLAYBOOK` choose the certain `playbook` from your repository_url,<br/> 
-  in my case can choose the `ansible-modules/check_disk_space_usage.yml`,
+  in my case can choose the `ansible-modules_and_ansible_playbooks/check_disk_space_usage.yml`,
   from `CREDENTIALS` choose `project1-credentials`, click `Save` button, and `LAUNCH` button.
 
   Note: First attempt can failed, I mean, when you try to create a `Project`,<br/>
@@ -324,139 +457,4 @@ another_windows_hostname<br/>
   (something like - `project1-project@7:18:48 PM`),<br/>
   and it should be ok, should connect to your github repository,<br/> 
   and after successfully connected you can delete first version for project - `project1-project`.
-  
-
-
-# Ansible Roles
-### Contents
-- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
-
-#### Generate the ansible roles with `Ansible Galaxy`:
-###### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
-- sudo su -
-- git clone `https://github.com/mihaivirlan/ansible.git`
-- cd `path_to_new_cloned_repository`
-- cd `managing-files`
-- pwd (should be as: `/root/ansible/managing-files`)
-- ansible-galaxy search `nginx`
-- ansible-galaxy search `nginx` --platform EL | grep `geerl`
-- ansible-galaxy install g`eerlingguy.nginx`
-- cd `/home/your_username/.ansible/roles/geerlingguy.nginx/roles/`
-- ls -la
-- ls -l vars/
-- cat tasks/main.yml
-- cat tasks/setup-RedHat.yml
-- cd ~
-- cd `/root/ansible/managing-files`
-- cat nginx-role.yml
-- ansible-playbook nginx-role.yml
-
-- cd `/etc/ansible/roles`
-- ls -la
-- ansible-galaxy init `apache` --offline
-- ls -la
-- cd `apache`,<br/>
-  and work with new generated `apache` role...
-
-#### Writing Ansible `Custom Roles`
-- cd ~
-- mkdir roles
-- cd roles/
-- ansible-galaxy init `motd`
-- ls -la
-- tree motd
-- cd motd
-- you can edit and add more info about you in the file `meta/main.yml`
-- nano `tasks/main.yml` (and complete like follow, and uncomment the lines)<br/>
----<br/>
-#tasks file for motd<br/>
-#- name:	copy motd file<br/>
-  #template: <br/>
-    #src: templates/motd.j2<br/>
-    #dest: /etc/motd<br/>
-    #owner: root<br/>
-    #group: root<br/>
-    #mode: 0444
-
-- nano `templates/motd.j2` (and complete like follow)
-Welcome	to {{ ansible_hostname }}<br/>
-
-This file was created on {{ ansible_date_time.date }}<br/>
-Go away	if you have no business	being here<br/>
-
-Contact	{{ system_manager }} if	anything is wrong
-
-- nano `defaults/main.yml` (and complete like follow)
----<br/>
-#defaults file for motd<br/>
-system_manager:	`your_system_manager_email_address`
-
-- cd ../../managing-files
-- ansible-playbook motd-role.yml
-- ansible linux -a "cat /etc/motd"
-
-#### Using `System Roles`
-- sudo yum search `system-role`
-- sudo yum install `rhel-system-roles`
-- sudo rpm -ql `rhel-system-roles`
-- sudo su -
-- cd /usr/share/ansible/roles/
-- ls -l
-- tree rhel-system-roles.network/
-- cd /usr/share/doc/rhel-system-roles-1.0 / cd /usr/share/doc/rhel-system-roles
-- ls -l
--  cd network/
-- ls -l
-
-
-
-#### Describe the ansible role, for example `apache` role:
-- `defaults` = Data about the role / application. Default variables.
-- `files` = Put the static files here. Files will then be copied on `remote machines`
-- `handlers` = Tasks which are based on some actions. Triggers.<br/>
-   Example: in case my httpd.conf changes, it should trigger service restart.
-
-- `meta` = Information about the role. Author, supported platforms, etc. Dependencies, if any.
-- `tasks` = Core logic or code. Installing package, coping files, etc.
-- `templates` = Similar to files except that templates support dynamic files. Jinja2 - template language.
-- `vars` = Both vars and defaults stores variable.<br/>
-   Variables stored under "vars" has got higher prioprity and difficult to override.
-
-# Managing files
-### Contents
-- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
-
-#### Using Templates and Jinja2
-#### From `ansible-root` machine:
-- sudo su -
-- git clone `https://github.com/mihaivirlan/ansible.git`
-- cd `path_to_new_cloned_repository`
-- cd `managing-files`
-- pwd (should be as: `/root/ansible/managing-files`)
-
-- ansible-playbook vsftpd-template.yml
-- ansible `linux` -a "cat /etc/vsftpd/vsftpd.conf"
-
-#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
-- ls -l /etc/vsftpd
-- cat /etc/vsftpd/vsftpd.conf
-
-#### From `ansible-root` machine:
-- ansible `linux` -a "cat /etc/hosts"
-- ansible-playbook hostsfile.yml
-
-- ansible-playbook copy.yml
-- ansible `linux` -a "cat /tmp/hosts"
-
-- tree files
-- tree vars
-- cat vars/groups
-- cat vars/users
-- cat setup_users.yml
-- ansible-playbook setup_users.yml
-- ansible `linux` -a "sudo cat /etc/group"
-- ansible `linux` -a "sudo ls -la /home"
-
-#### Test the ssh connection with new created users, from your `ansible-root` machine to `ansible-client` machine
-- ssh `linda@ansible-client` / ssh `lisa@ansible-client`
 

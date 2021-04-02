@@ -1,0 +1,7 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: "shut down CentOS 6 and Debian 7 systems"
+    command: poweroff
+    when: ansible_facts['os_family'] == "Debian" or
+          ansible_facts['os_family'] == "RedHat"

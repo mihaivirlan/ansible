@@ -1,8 +1,0 @@
----
-- hosts: servers
-  become: yes
-  tasks:
-  - name: Create a filesystem
-    filesystem:
-      fstype: xfs
-      dev: /dev/vg1/lvol1

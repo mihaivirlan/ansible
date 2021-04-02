@@ -1,0 +1,7 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Compress directory /etc/some_directory into /etc/some_directory.tgz
+    archive:
+      path: /etc/some_directory
+      dest: /etc/some_directory.tgz

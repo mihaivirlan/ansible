@@ -1,0 +1,9 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Change file ownership, group and permissions
+    file:
+      path: /etc/foo.conf
+      owner: mihail
+      group: mihail
+      mode: '0664'

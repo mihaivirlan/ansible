@@ -1,9 +1,0 @@
----
-- hosts: servers
-  become: yes
-  tasks:
-  - name: Start and enable nginx service
-    service:
-      name: nginx
-      state: started
-      enabled: yes

@@ -1,9 +1,0 @@
----
-- hosts: servers
-  become: yes
-  tasks:
-  - name: Create lVM volume group
-    lvg:
-      vg: vg1
-      pvs: /dev/sdb1
-      pesize: 32

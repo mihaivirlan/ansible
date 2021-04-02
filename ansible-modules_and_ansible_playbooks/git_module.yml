@@ -1,0 +1,7 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - git:
+      repo: https://github.com/ansible/ansible-examples.git
+      dest: /src/ansible-examples
+      archive: /tmp/ansible-examples.zip

@@ -1,9 +1,0 @@
----
-- hosts: servers
-  become: yes
-  tasks:
-  - name: Create a new user
-    user: 
-      name: Jack
-      state: absent
-      remove: yes

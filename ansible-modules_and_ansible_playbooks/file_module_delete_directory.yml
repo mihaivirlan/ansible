@@ -1,0 +1,7 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Recursively deleting a  directory
+    file:
+      path: /etc/some_directory
+      state: absent

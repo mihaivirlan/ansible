@@ -1,0 +1,9 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Create lVM volume
+    lvol:
+      vg: vg1
+      lv: lvol1
+      pvs: /dev/sdb1
+      size: 512

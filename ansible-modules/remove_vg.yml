@@ -1,9 +1,0 @@
----
-- hosts: servers
-  become: yes
-  tasks:
-  - name: Remove a vg
-    lvg:
-      vg: vg1
-      state: absent
-      force: yes

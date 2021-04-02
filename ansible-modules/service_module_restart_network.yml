@@ -1,9 +1,0 @@
----
-- hosts: servers
-  become: yes
-  tasks:
-  - name: Restart network service for interface enp0s8
-    service:
-      name: systemd-networkd
-      state: restarted
-      args: enp0s8

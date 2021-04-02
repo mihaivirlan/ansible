@@ -1,0 +1,8 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Create a zip archive
+    archive:
+      path: /etc/some_directory
+      dest: /tmp/web
+      format: zip

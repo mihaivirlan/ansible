@@ -1,0 +1,17 @@
+- hosts: servers
+  become: yes
+  tasks:  
+  - name: install packages
+    yum:
+      state: present
+      name: 
+        - tcsh  
+    when: ansible_os_family == "RedHat"
+
+  - name: install packages
+    apt:
+      state: present
+      name:
+        - tcsh
+        - htop 
+    when: ansible_os_family == "Debian"
