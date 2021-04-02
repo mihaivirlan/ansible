@@ -39,8 +39,8 @@
 
 #### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7):
 - sudo su -
-- apt update; apt install ansible
-- apt install git
+- yum update; yum install ansible
+- yum install git
 - ansible --version
 - git --version
 - nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
@@ -52,7 +52,7 @@ ansible_python_interpreter=/usr/bin/python3
 - nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
 #host_key_checking = False
 
-- ansible servers -m `ping`
+- ansible `linux` -m `ping`
 
 #### From `ansible-root` machine:
 - sudo su -
@@ -74,6 +74,7 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible `centos8-server` -m `shell` -a "cat /var/www/html/index.html"
 
 - ansible-playbook webserver_uninstall.yml
+- ansible centos8-server -m shell -a "rpm -qa | grep http"
 
 
 # Ansible modules
@@ -102,22 +103,22 @@ ansible_python_interpreter=/usr/bin/python3
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
 - sudo su -
 - apt update; apt install ansible
 - apt install git
 - ansible --version
 - git --version
 - nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
-[servers]<br/>
+[linux]<br/>
 ansible-client<br/>
-[servers:vars]<br/>
+[linux:vars]<br/>
 ansible_python_interpreter=/usr/bin/python3
 
 - nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
 #host_key_checking = False
 
-- ansible servers -m `ping`
+- ansible `linux` -m `ping`
 
 #### From `ansible-root` machine:
 - sudo su -
@@ -125,11 +126,104 @@ ansible_python_interpreter=/usr/bin/python3
 - cd `path_to_new_cloned_repository`
 - cd `ansible-modules_and_ansible_playbooks`
 - pwd (should be as: `/root/ansible/ansible-modules_and_ansible_playbooks`)
+
 - ansible-playbook copy_file_module.yml
 - and so... for each `ansible module` from the `/root/ansible/ansible-modules_and_ansible_playbooks` folder
 
 
+# Ansible Variables and Facts
+#### Using Variables
+- `Variables` can be set at the different levels:<br/>
+`In a playbook`<br/>
+`In inventory` (deprecated)<br/>
+`In inclusion files`
+
+- `Variables` names have some requirements:<br/>
+`The name must start with a letter`<br/>
+`Variable names can only contain letters, numbers, and underscores`
+
+#### Defining Variables
+- `Variables` can be defined in a vars block in the beginning of a playbook
+- Alternatively, `variables` can be defined in a variable file, which will be included from the playbook
+
+### Contents
+- `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
+
+#### Get started
+- edit your local `/etc/hosts` file and add inside,<br/> 
+  the `ip address` and `hostname` for `ansible-root` machine
+
+- open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
+- after connected, from `ansible-root` machine,<br/>
+  edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
+  generate the ssh key,<br/>
+  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id username@ansible-client` / `ssh-copy-id root@ansible-client`
+
+- after transfer successfully ssh public key,<br/>
+  try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
+  you should connect/login successfully through ssh, if you successfully transferred the public key
+
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7):
+- sudo su -
+- yum update; yum install ansible
+- yum install git
+- ansible --version
+- git --version
+- nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
+[linux]<br/>
+ansible-client<br/>
+[linux:vars]<br/>
+ansible_python_interpreter=/usr/bin/python3
+
+- nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
+#host_key_checking = False
+
+- ansible `linux` -m `ping`
+
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `variables_and_facts`
+- pwd (should be as: `/root/ansible/variables_and_facts`)
+
+- 
+
+
 # Ansible tasks-control
+### Contents
+- `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
+
+#### Get started
+- edit your local `/etc/hosts` file and add inside,<br/> 
+  the `ip address` and `hostname` for `ansible-root` machine
+
+- open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
+- after connected, from `ansible-root` machine,<br/>
+  edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
+  generate the ssh key,<br/>
+  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id username@ansible-client` / `ssh-copy-id root@ansible-client`
+
+- after transfer successfully ssh public key,<br/>
+  try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
+  you should connect/login successfully through ssh, if you successfully transferred the public key
+
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
+- sudo su -
+- apt update; apt install ansible
+- apt install git
+- ansible --version
+- git --version
+- nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
+[linux]<br/>
+ansible-client<br/>
+[linux:vars]<br/>
+ansible_python_interpreter=/usr/bin/python3
+
+- nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
+#host_key_checking = False
+
+- ansible `linux` -m `ping`
+
 #### From `ansible-root` machine:
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
@@ -177,7 +271,7 @@ ansible_python_interpreter=/usr/bin/python3
 ### Contents
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
-#### Generate the ansible roles with `Ansible Galaxy`:
+#### Generate the ansible `roles` with `Ansible Galaxy`:
 ###### You can find more information about galaxy roles, accesing the follow link: https://galaxy.ansible.com/
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
@@ -239,7 +333,7 @@ system_manager:	`your_system_manager_email_address`
 
 - cd ../../managing-files
 - ansible-playbook motd-role.yml
-- ansible linux -a "cat /etc/motd"
+- ansible `linux` -a "cat /etc/motd"
 
 #### Using `System Roles`
 - sudo yum search `system-role`
@@ -311,7 +405,7 @@ system_manager:	`your_system_manager_email_address`
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
-#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
 - sudo su -
 - edit your `/etc/hosts` file, and add the `ip_addresses` with `hostnames` for your `client` group instances/machines
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
@@ -395,12 +489,12 @@ another_windows_hostname<br/>
 - test connection between your `ansible-root` machine and `windows` machine:<br/>
   `ping windows_hostname`
 
-- ansible `win` -m `win_ping`
+- ansible `windows` -m `win_ping`
 
 ### Working with `win_chocolatey` - ansible module for Windows machines management
 #### From `ansible-root` machine:
 - ansible-doc `win_chocolatey`
-- ansible `win` -m `win_chocolatey` -a 'name=notepadplusplus state=present'
+- ansible `windows` -m `win_chocolatey` -a 'name=notepadplusplus state=present'
 - cd `win_chocolately`
 - ansible-playbook install_multiple_packages_sequentially.yml
 
@@ -423,7 +517,7 @@ another_windows_hostname<br/>
   to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
   later you will need to use this `key pair` in the `task.yml` file
 
-#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu):
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
 - sudo su - 
 - apt install python-pip
 - pip install boto
