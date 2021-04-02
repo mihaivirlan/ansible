@@ -10,6 +10,52 @@
 - ansible `linux` -m `shell` -a 'cat /tmp/motd'
 
 
+# Ansible Playbooks
+### Contents
+- `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
+
+#### Get started
+- edit your local `/etc/hosts` file and add inside,<br/> 
+  the `ip address` and `hostname` for `ansible-root` machine
+
+- open terminal/shell and connecting on `ansible-root` vm/host through ssh: `ssh ansible-root`
+- after connected, from `ansible-root` machine,<br/>
+  edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
+  generate the ssh key,<br/>
+  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id username@ansible-client` / `ssh-copy-id root@ansible-client`
+
+- after transfer successfully ssh public key,<br/>
+  try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
+  you should connect/login successfully through ssh, if you successfully transferred the public key
+
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7):
+- sudo su -
+- apt update; apt install ansible
+- apt install git
+- ansible --version
+- git --version
+- nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
+[linux]<br/>
+ansible-client<br/>
+[linux:vars]<br/>
+ansible_python_interpreter=/usr/bin/python3
+
+- nano `/etc/ansible/ansible.cfg` (edit and add uncomment the follow line)<br/>
+#host_key_checking = False
+
+- ansible servers -m `ping`
+
+#### From `ansible-root` machine:
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `ansible-modules_and_ansible-playbooks`
+- pwd (should be as: `/root/ansible/ansible-modules_and_ansible-playbooks`)
+- ansible-playbook vsftpd.yml
+- ansible `linux` -a "ls -l /var/ftp/pub"
+- ansible `linux ` -m `shell` -a "cat /var/ftp/pub/README"
+
+
 # Ansible modules
 ### Essential Ansible Modules
 - `ping`: ansible `linux` `ping`
@@ -30,7 +76,7 @@
 - after connected, from `ansible-root` machine,<br/>
   edit and add your hostname and ip address for `ansible-client` machine in `/etc/hosts`,<br/>
   generate the ssh key,<br/>
-  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id ansible-client`
+  and transfer the ssh public key to `ansible-client` machine/vm: `ssh-copy-id username@ansible-client` / `ssh-copy-id root@ansible-client`
 
 - after transfer successfully ssh public key,<br/>
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
@@ -44,7 +90,7 @@
 - git --version
 - nano `/etc/ansible/hosts` (edit and add follow entry at the end of the file)<br/>
 [servers]<br/>
-ansible-client ansible_host=192.168.8.108<br/>
+ansible-client<br/>
 [servers:vars]<br/>
 ansible_python_interpreter=/usr/bin/python3
 
