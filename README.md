@@ -186,7 +186,8 @@ ansible_python_interpreter=/usr/bin/python3
 - cd `variables_and_facts`
 - pwd (should be as: `/root/ansible/variables_and_facts`)
 
-- 
+- ansible-playbook -v user.yml
+- ansible `linux` -m `shell` -a "grep lisa /etc/passwd"
 
 
 # Ansible tasks-control
