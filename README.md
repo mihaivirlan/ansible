@@ -11,6 +11,15 @@
 
 
 # Ansible Playbooks
+### Understanding Plays
+- A `play` is a series of tasks that are executed against selected hosts from the inventory, using specific credentials.
+- Using multiple `plays` allows running tasks on different hosts, using different credentials from the same playbook.
+- Within a `play` definition, escalation parameters can be defined:<br/>
+`remote_user`: the name of the remote user<br/>
+`become`: to enable or disable privilege escalation<br/>
+`become_method`: to allow using and alternative escalation solution<br/>
+`become_user`: the target user used for privilege escalation
+
 ### Contents
 - `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
@@ -51,9 +60,20 @@ ansible_python_interpreter=/usr/bin/python3
 - cd `path_to_new_cloned_repository`
 - cd `ansible-modules_and_ansible-playbooks`
 - pwd (should be as: `/root/ansible/ansible-modules_and_ansible-playbooks`)
+
+- cat vsftpd.yml
+- ansible-playbook --syntax-check vsftpd.yml
+- ansible-playbook -vvvv vsftpd.yml / ansible-playbook -vv vsftpd.yml
 - ansible-playbook vsftpd.yml
 - ansible `linux` -a "ls -l /var/ftp/pub"
 - ansible `linux ` -m `shell` -a "cat /var/ftp/pub/README"
+
+- cat webserver_setup_and_test.yml
+- ansible-playbook --syntax-check webserver_setup_and_test.yml
+- ansible-playbook webserver_setup_and_test.yml / ansible-playbook -v webserver_setup_and_test.yml
+- ansible `centos8-server` -m `shell` -a "cat /var/www/html/index.html"
+
+- ansible-playbook webserver_uninstall.yml
 
 
 # Ansible modules
