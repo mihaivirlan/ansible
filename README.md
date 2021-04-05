@@ -10,6 +10,7 @@
 - ansible `linux` -m `shell` -a 'cat /tmp/motd'
 
 
+
 # Ansible Playbooks
 ### Understanding Plays
 - A `play` is a series of tasks that are executed against selected hosts from the inventory, using specific credentials.
@@ -77,6 +78,7 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible centos8-server -m shell -a "rpm -qa | grep http"
 
 
+
 # Ansible modules
 ### Essential Ansible Modules
 - `ping`: ansible `linux` `ping`
@@ -129,6 +131,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible-playbook copy_file_module.yml
 - and so... for each `ansible module` from the `/root/ansible/ansible-modules_and_ansible_playbooks` folder
+
 
 
 # Ansible Variables and Facts
@@ -214,6 +217,54 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook multi-list.yml
 - ansible-playbook multi-dictionary.yml
 
+#### Using Ansible Vault / Creating an Encrypted file
+- Some modules require sensitive data to be processed
+- This may include webkeys, passwords, and more...
+- To process sensitive data in a secure way, `Ansible Vault` can be used
+- `Ansible Vault` is used to encrypt and decrypt files
+- To manage this process, the `ansible-vault` command is used
+
+- To create an encrypted file, use `ansible-vault create playbook.yml`
+- `ansible-vault create playbook.yml` - will prompt for a new vault password, and opens the file in `vi`for further editing
+- To view a vault encrypted file, use `ansible-vault view playbook.yml`
+- To edit, use `ansible-vault edit playbook.yml`
+- Use `ansible-vault encrypt playbook.yml` to encrypt an existing file,<br/>
+  ans use `ansible-vault decrypt playbook.yml` to decrypt it
+
+- To change a password on an existing file, use `ansible-vault rekey`
+
+#### Using Playbooks with Vault
+- To run playbook that accesses `Vault` encrypted files,<br/> 
+  you need to use the `--vault-id @prompt` option to be prompted for a password
+
+- Alternatively, you can store the password as a single-line string in a password file,<br/>
+  and access that using the `--vault-password-file=vault-file` option
+
+#### Managing Vault files
+- When setting up projects with `Vault` encrypted files,<br/>
+  it makes sense to use separate files to store encrypted and non-encrypted variables
+
+- To store host or host-group related variable files, you can use the following structure:<br/>
+`-group_vars`<br/>
+  `--dbservers`<br/>
+    `- vars`<br/>
+    `- vault`
+
+- cd vault
+- pwd (should be as: `/root/ansible/variables_and_facts/vault`)
+- tree
+- ansible-vault create secret.yml<br/>
+  and after run the above command, need to set the password, after that, should be oppened a new file in `vi` editor,<br/>
+  in which need to set the username, like follow:<br/>
+  `username: lisa`<br/>
+  `pwhash: password`
+
+- ls -l
+- cat secret.yml
+- ansible-playbook --ask-vault-pass create-user.yml
+
+
+
 # Ansible tasks-control
 ### Contents
 - `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
@@ -290,6 +341,7 @@ ansible_python_interpreter=/usr/bin/python3
    Ansible collects pretty much all the information about the remote hosts as it runs a playbook.<br/> 
    The task of collecting this remote system information is called as Gathering Facts by ansible,<br/>
    and the details collected are generally known as facts or variables.
+
 
 
 # Ansible Roles
@@ -386,6 +438,7 @@ system_manager:	`your_system_manager_email_address`
    Variables stored under "vars" has got higher prioprity and difficult to override.
    
 
+
 # Managing files
 ### Contents
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
@@ -425,6 +478,7 @@ system_manager:	`your_system_manager_email_address`
 - ssh `linda@ansible-client` / ssh `lisa@ansible-client`
 
 
+
 # Ansible Inventories
 ### Contents
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
@@ -448,6 +502,7 @@ system_manager:	`your_system_manager_email_address`
 - cd `cd ansible-inventories/install/`
 - pwd (should be as: `/root/ansible/ansible-inventories/install/`)
 - ansible -i inventory `all` --list-hosts
+
 
 
 # Ansible Winrm (Windows machines management)
@@ -528,6 +583,7 @@ another_windows_hostname<br/>
   on `ansible-root` machine, were installed successfully
 
 
+
 # Create EC2 instance using Ansible
 ### Contents
 - `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
@@ -556,6 +612,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - ansible-playbook task.yml
 - after task running successfully, check in your aws console `https://us-east-2.console.aws.amazon.com/`,<br/> 
   if the instance was successfully created.
+
 
 
 # Ansible Tower installation on RHEL server
