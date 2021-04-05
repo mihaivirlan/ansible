@@ -1,0 +1,8 @@
+- name: show arrays
+  hosts: centos8-server
+  vars_files:
+    - vars/users
+  tasks:
+    - name: print array values
+      debug:
+        msg: "User {{ users.linda.username }} has homedirectory {{ users.linda.homedir }} and shell {{ users.linda.shell }}"

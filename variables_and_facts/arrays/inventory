@@ -1,0 +1,12 @@
+centos8-server
+ubuntu19-desktop
+
+[lamp]
+centos8-server
+
+[file]
+ubuntu19-desktop
+
+[nodes:children]
+lamp
+file

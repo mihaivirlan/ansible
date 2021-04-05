@@ -195,7 +195,17 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook -v user.yml
 - ansible `linux` -m `shell` -a "grep lisa /etc/passwd"
 
+#### Managing Host Variables:
 - cd webservers
+- pwd (should be as: `/root/ansible/variables_and_facts/webservers`)
+- tree
+- ansible-playbook site.yml<br/>
+  (Notice: In this case, our `invetory` and `ansible.cfg` files from your working directory will have priority,<br/>
+  and not a default - `/etc/ansible/hosts` or `/etc/asible/asible.cfg`)
+
+#### Using Multi-valued Variables
+-
+
 
 
 # Ansible tasks-control
