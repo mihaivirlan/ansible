@@ -132,20 +132,6 @@ ansible_python_interpreter=/usr/bin/python3
 
 
 # Ansible Variables and Facts
-#### Using Variables
-- `Variables` can be set at the different levels:<br/>
-`In a playbook`<br/>
-`In inventory` (deprecated)<br/>
-`In inclusion files`
-
-- `Variables` names have some requirements:<br/>
-`The name must start with a letter`<br/>
-`Variable names can only contain letters, numbers, and underscores`
-
-#### Defining Variables
-- `Variables` can be defined in a vars block in the beginning of a playbook
-- Alternatively, `variables` can be defined in a variable file, which will be included from the playbook
-
 ### Contents
 - `ansible-root` and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
@@ -180,6 +166,26 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible `linux` -m `ping`
 
+#### Using Variables
+- `Variables` can be set at the different levels:<br/>
+`In a playbook`<br/>
+`In inventory` (deprecated)<br/>
+`In inclusion files`
+
+- `Variables` names have some requirements:<br/>
+`The name must start with a letter`<br/>
+`Variable names can only contain letters, numbers, and underscores`
+
+#### Defining Variables
+- `Variables` can be defined in a vars block in the beginning of a playbook
+- Alternatively, `variables` can be defined in a variable file, which will be included from the playbook
+
+#### Variables precedence/scope
+- `Variables` can be set with different types of scope:<br/>
+`Global scope`: this is when a variable is set from inventory or the command line<br/>
+`Play scope`: this is applied when it is set from a play<br/>
+`Host scope`: this is applied when set in inventory or using a host variable inclusion file
+
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -188,6 +194,8 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible-playbook -v user.yml
 - ansible `linux` -m `shell` -a "grep lisa /etc/passwd"
+
+- cd webservers
 
 
 # Ansible tasks-control
