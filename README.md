@@ -37,7 +37,7 @@
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7):
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7)
 - sudo su -
 - yum update; yum install ansible
 - yum install git
@@ -54,7 +54,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible `linux` -m `ping`
 
-#### From `ansible-root` machine:
+#### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -103,7 +103,7 @@ ansible_python_interpreter=/usr/bin/python3
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10)
 - sudo su -
 - apt update; apt install ansible
 - apt install git
@@ -120,7 +120,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible `linux` -m `ping`
 
-#### From `ansible-root` machine:
+#### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -149,7 +149,7 @@ ansible_python_interpreter=/usr/bin/python3
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7):
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the RedHat distribution - Centos7)
 - sudo su -
 - yum update; yum install ansible
 - yum install git
@@ -195,18 +195,24 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook -v user.yml
 - ansible `linux` -m `shell` -a "grep lisa /etc/passwd"
 
-#### Managing Host Variables:
+#### Managing Host Variables
 - cd webservers
 - pwd (should be as: `/root/ansible/variables_and_facts/webservers`)
 - tree
 - ansible-playbook site.yml<br/>
-  (Notice: In this case, our `invetory` and `ansible.cfg` files from your working directory will have priority,<br/>
   and not a default - `/etc/ansible/hosts` or `/etc/asible/asible.cfg`)
 
-#### Using Multi-valued Variables
--
+#### Using Multi-valued Variables / Using Dictionary
+- To address items in a dictionary, you can use two notations:<br/>
+`variable_name['key']`, as in `users['linda']['shell']`
+`variable_name.key` as in `users.linda.shell`
+- You cannot use `loop` or `with_items` on dictionaries
 
-
+- cd arrays
+- pwd (should be as: `/root/ansible/variables_and_facts/arrays`)
+- tree
+- ansible-playbook multi-list.yml
+- ansible-playbook multi-dictionary.yml
 
 # Ansible tasks-control
 ### Contents
@@ -226,7 +232,7 @@ ansible_python_interpreter=/usr/bin/python3
   try to connect from `ansible-root` machine to `ansible-client` machine,<br/>
   you should connect/login successfully through ssh, if you successfully transferred the public key
 
-#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
+#### Install/setting up the git/ansible on your `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10)
 - sudo su -
 - apt update; apt install ansible
 - apt install git
@@ -243,7 +249,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible `linux` -m `ping`
 
-#### From `ansible-root` machine:
+#### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -367,7 +373,7 @@ system_manager:	`your_system_manager_email_address`
 -  cd network/
 - ls -l
 
-#### Describe the ansible role, for example `apache` role:
+#### Describe the ansible role, for example `apache` role
 - `defaults` = Data about the role / application. Default variables.
 - `files` = Put the static files here. Files will then be copied on `remote machines`
 - `handlers` = Tasks which are based on some actions. Triggers.<br/>
@@ -385,7 +391,7 @@ system_manager:	`your_system_manager_email_address`
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Using Templates and Jinja2
-#### From `ansible-root` machine:
+#### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -395,7 +401,7 @@ system_manager:	`your_system_manager_email_address`
 - ansible-playbook vsftpd-template.yml
 - ansible `linux` -a "cat /etc/vsftpd/vsftpd.conf"
 
-#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied:
+#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied
 - ls -l /etc/vsftpd
 - cat /etc/vsftpd/vsftpd.conf
 
@@ -424,7 +430,7 @@ system_manager:	`your_system_manager_email_address`
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
 
 #### Creating a Custom Inventory File (by default, after install and configuration `ansible`, the `/etc/ansible/hosts` file, has a inventory role)
-#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10)
 - sudo su -
 - edit your `/etc/hosts` file, and add the `ip_addresses` with `hostnames` for your `client` group instances/machines
 - comment out all earlier `servers` entries from `/etc/ansible/hosts` file
@@ -435,7 +441,7 @@ system_manager:	`your_system_manager_email_address`
 - ansible-playbook -i inventory updates_packages.yml
 
 #### Setting up Static Inventory
-#### From `ansible-root` machine:
+#### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -448,7 +454,7 @@ system_manager:	`your_system_manager_email_address`
 ### Contents
 - `ansible-root` and `windows`: two up hosts/vm's, mandatory for this demo!
 
-#### From your `windows` machine:
+#### From your `windows` machine
 - Create/add a new user on `windows` machine, and assign it to group Administrator:<br/>
 	username: `your_username`<br/>
 	password: `your_set_password`<br/>
@@ -468,26 +474,26 @@ system_manager:	`your_system_manager_email_address`
   therefore, the connection credentials from `/etc/ansible/group_vars/win.yml` file,<br/> 
   from `ansible-root` machine, will be only for one user!
 
-#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7):
+#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS7)
 - sudo su -
 - should need to have installed the `ansible`:<br/>
   `https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-centos-7`
 
-#### For `centos7`: 
+#### For `centos7`
 - yum install wget && yum install gcc && yum install python-devel && yum install python-pip && yum install python3-virtualenv
 - yum install python2-winrm
 - pip install python2-winrm
 - pip3 install python2-winrm
 - pip3 install pywinrm
 
-#### For `centos8`: 
+#### For `centos8`
 - dnf install wget && dnf install gcc && dnf install python3-devel && dnf install python3-pip && dnf install python3-virtualenv
 - dnf install python2-winrm
 - pip install python2-winrm
 - pip3 install python2-winrm
 - pip3 install pywinrm
 
-#### For both `centos` versions:
+#### For both `centos` versions
 - pip -V
 - wget `https://bootstrap.pypa.io/get-pip.py`
 - python3.6 get-pip.py / python get-pip.py
@@ -511,7 +517,7 @@ another_windows_hostname<br/>
 - ansible `windows` -m `win_ping`
 
 ### Working with `win_chocolatey` - ansible module for Windows machines management
-#### From `ansible-root` machine:
+#### From `ansible-root` machine
 - ansible-doc `win_chocolatey`
 - ansible `windows` -m `win_chocolatey` -a 'name=notepadplusplus state=present'
 - cd `win_chocolately`
@@ -526,7 +532,7 @@ another_windows_hostname<br/>
 ### Contents
 - `ansible-root` machine and `aws account`: two stuff mandatory for this demo!
 
-#### From your aws console `https://us-east-2.console.aws.amazon.com/`:
+#### From your aws console `https://us-east-2.console.aws.amazon.com/`
 - Acces from `Services` menu, the `IAM` create a `user` and generate a `key` for your `new user created`,<br/> 
   or it's generated automatically,<br/> 
   and needed only copy+paste these keys into one new `notepad++` file and save this file into secure location<br/>
@@ -536,7 +542,7 @@ another_windows_hostname<br/>
   to check for `key pair`, go in `Sevices` -> `EC2` -> `Resources` -> `Key pairs`<br/>
   later you will need to use this `key pair` in the `task.yml` file
 
-#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10):
+#### From `ansible-root` machine (for this demo, I used the Debian distribution - Ubuntu 19.10)
 - sudo su - 
 - apt install python-pip
 - pip install boto
@@ -557,7 +563,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
 - `ansible-root` one host/vm, and one or more another `ansible-client(s)` mandatory for this demo!
 
 #### Usually for installation of Ansible Tower, you need to have installed CentOS7.7 or a greather of CentOS7.7 version, for example - CentOS8, and a memory RAM >= 8192 MB
-#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS8):
+#### From `ansible-root` machine (for this demo, I used the RedHat distribution - CentOS8)
 
 - sudo su -
 - dnf -y update
@@ -600,7 +606,7 @@ aws_secret_access_key = `paste_your_generated_key_for_user_created_above_account
   `https://access.redhat.com/management/subscriptions`<br/>
   `https://access.redhat.com/management/subscription_allocations`
 
-#### You may check service status that should be running now:
+#### You may check service status that should be running now
 - supervisorctl status
 - ansible-tower-service status
 
