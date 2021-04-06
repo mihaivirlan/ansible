@@ -189,6 +189,7 @@ ansible_python_interpreter=/usr/bin/python3
 `Play scope`: this is applied when it is set from a play<br/>
 `Host scope`: this is applied when set in inventory or using a host variable inclusion file
 
+### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
@@ -274,6 +275,36 @@ ansible_python_interpreter=/usr/bin/python3
 - pwd (should be as: `/root/ansible/variables_and_facts/facts`)
 - ls -la
 - ansible-playbook facts.yml / ansible-playbook facts.yml | less
+- ansible-playbook ipfact.yml
+
+#### Dispaying Fact Names
+- In Ansible 2.4 and before, Ansible `facts` were stored as individual variables,<br/>
+  such as `ansible_hostname` and `ansible_interfaces`.
+
+- In Ansible 2.5 and later, all `facts` are stored in one variable with the name `ansible_facts`,<br/>
+  and referring to specific `facts` happens in a different way:<br/> 
+  `ansible_facts['hostname']` and `ansible_facts['interfaces']`
+
+#### Turning off Fact Gathering
+- Disabling `fact gathering` may seriously speed up playbooks
+- Use `gather_facts: no` in the play header to disable
+- Even if `fact gathering` is disabled, it can ne enabled again by running the `setup` module in a task
+
+#### Creating Custom Facts
+- `Custom facts` allow administrators to dynamically generate variables which are stored as `facts`
+- `Custom facts` are stored in an `ini` or `json` file<br/> 
+   in the `/etc/ansible/facts.d` directory on the managed host.<br/>
+   The name of these files must end in `.fact`
+
+- `Custom facts` are stored in the `ansible_facts.ansible_local` variable
+- Use `ansible hostname -m setup -a "filter=ansible_local"` to display local `facts`
+- Notice how fact filename and label are used in the `fact`
+
+- cd facts
+- pwd (should be as: `/root/ansible/variables_and_facts/facts`)
+- ls -la
+- ansible-playbook newlocalfacts.yml
+- ansible all -m setup -a "filter=ansible_local"
 
 
 
