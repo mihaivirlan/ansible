@@ -263,6 +263,18 @@ ansible_python_interpreter=/usr/bin/python3
 - cat secret.yml
 - ansible-playbook --ask-vault-pass create-user.yml
 
+#### Working with Facts
+- BY default, all `playbooks` perform `fact gathering` before running the actual plays
+- You can run `fact gathering` in an `ad hoc` command using the `setup` module
+- To show `facts`, use the debug module to print the value of the `ansible_facts` variable
+- Notice that in `facts`, a hierarchical relationship is shown where you can use the dotted format to refer to a specific `fact`
+
+- ansible -m `setup` `linux` / ansible -m `setup` `linux` | less
+- cd facts
+- pwd (should be as: `/root/ansible/variables_and_facts/facts`)
+- ls -la
+- ansible-playbook facts.yml / ansible-playbook facts.yml | less
+
 
 
 # Ansible tasks-control
