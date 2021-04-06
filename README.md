@@ -289,6 +289,14 @@ ansible_python_interpreter=/usr/bin/python3
 - Disabling `fact gathering` may seriously speed up playbooks
 - Use `gather_facts: no` in the play header to disable
 - Even if `fact gathering` is disabled, it can ne enabled again by running the `setup` module in a task
+- `Gathering Facts` are importants when we work with `templates` and not only:<br/>
+   This module takes care of executing the configured facts modules, the default is to use the setup module.<br/>
+   This module is automatically called by playbooks to gather useful variables about remote hosts that can be used in playbooks.<br/>
+   It can also be executed directly by /usr/bin/ansible to check what variables are available to a host.<br/>
+   Ansible provides many facts about the system, automatically.<br/>
+   Ansible collects pretty much all the information about the remote hosts as it runs a playbook.<br/> 
+   The task of collecting this remote system information is called as Gathering Facts by ansible,<br/>
+   and the details collected are generally known as facts or variables.
 
 #### Creating Custom Facts
 - `Custom facts` allow administrators to dynamically generate variables which are stored as `facts`
@@ -315,6 +323,7 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible lamp -a "ls -l /etc/ansible/facts.d"
 - ansible lamp -m shell -a "cat /etc/ansible/facts.d/localfacts.fact"
 - ansible lamp -a "systemctl status smb"
+
 
 
 # Ansible tasks-control
@@ -362,7 +371,7 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook advanced_when_usage.yml
 - ansible-playbook ifsize.yml
 - ansible-playbook loopservices.yml
-
+s
 - ansible `linux` -a "sudo systemctl stop crond"
 - ansible `linux` -a "sudo systemctl status crond"
 - ansible-playbook restart_sshd_when_crond_is_running.yml
@@ -384,15 +393,6 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible `linux` -a "sudo rm /var/www/html/index.html"
 - ansible `linux` -a "ls -l /var/www/html"
 - ansible-playbook handlers.yml
-
-- `Gathering Facts` are importants when we work with `templates` and not only:<br/>
-   This module takes care of executing the configured facts modules, the default is to use the setup module.<br/>
-   This module is automatically called by playbooks to gather useful variables about remote hosts that can be used in playbooks.<br/>
-   It can also be executed directly by /usr/bin/ansible to check what variables are available to a host.<br/>
-   Ansible provides many facts about the system, automatically.<br/>
-   Ansible collects pretty much all the information about the remote hosts as it runs a playbook.<br/> 
-   The task of collecting this remote system information is called as Gathering Facts by ansible,<br/>
-   and the details collected are generally known as facts or variables.
 
 
 
