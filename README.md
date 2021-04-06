@@ -306,6 +306,15 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook newlocalfacts.yml
 - ansible all -m setup -a "filter=ansible_local"
 
+#### Working with Variables and Facts
+- cd facts
+- pwd (should be as: `/root/ansible/variables_and_facts/facts`)
+- ls -la
+- ansible-playbook localfacts.yml
+- ansible lamp -m shell -a "rpm -ql samba | grep smb"
+- ansible lamp -a "ls -l /etc/ansible/facts.d"
+- ansible lamp -m shell -a "cat /etc/ansible/facts.d/localfacts.fact"
+- ansible lamp -a "systemctl status smb"
 
 
 # Ansible tasks-control
