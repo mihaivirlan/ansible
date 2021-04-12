@@ -7,5 +7,5 @@
       name: httpd
       state: installed
     when:
-      - ansible_distribution == "CentOS"
-      - ansible_memfree_mb > 256
+      - ansible_distribution == "RedHat"
+      - ansible_memfree_mb > 1512

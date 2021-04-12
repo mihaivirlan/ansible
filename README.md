@@ -361,14 +361,6 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible `linux` -m `ping`
 
-#### Using Loops and Items
-- The `loop` keyword allows you to iterate through a simple list of items
-- Before Ansible 2.5, the `items` keyword was used instead
-- The list that loop is using can be defined by a variable
-- Each item in a loop can be a hash/dictionary with multiple keys in each hash/dictionary
-- The `loop` keyword is the current keyword
-- In previous versions of Ansible, the `with_*` keyword was used fo the same purpose
-
 #### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
@@ -377,14 +369,63 @@ ansible_python_interpreter=/usr/bin/python3
 - pwd (should be as: `/root/ansible/task-control`)
 - tree
 
-- ansible-playbook advanced_when_usage.yml
-- ansible-playbook ifsize.yml
+#### Using Loops and Items
+- The `loop` keyword allows you to iterate through a simple list of items
+- Before Ansible 2.5, the `items` keyword was used instead
+- The list that loop is using can be defined by a variable
+- Each item in a loop can be a hash/dictionary with multiple keys in each hash/dictionary
+- The `loop` keyword is the current keyword
+- In previous versions of Ansible, the `with_*` keyword was used fo the same purpose
 
 - ansible-playbook loopservices.yml
 - ansible `linux` -a "sudo systemctl stop crond"
 - ansible `linux` -a "sudo systemctl status crond"
 
 - ansible-playbook loopusers.yml
+- ansible `linux` -m shell -a "grep -r wheel /etc/group"
+- ansible `linux` -m shell -a "ls -l /home"
+
+#### Using Register Variables with Loops
+- A `register` is used to store the output of a command and address it is a variable
+- You can next use the result ot the command is a conditional or in a loop
+
+- ansible-playbook register_loop.yml
+- ansible-playbook register_command.yml
+
+#### Using when to Run Tasks Conditionally / Defining Simple Conditions
+- `when` statements are used to run a task conditionally
+- A condition can be used to run a task only if specific conditions are true
+- Playbook variables, registered variables,<br/>
+  and facts can be used in conditions and make sure that tasks only run if specific conditions are true
+
+- For instance, check if a task has run successfully, a certain amount of memory is available, a file exist, etc...
+
+- The simplest example of a condition, is to check whether a Boolean variable is tru or false
+- You can also check and see if a non-Boolean variable has a value and use that value in the conditional
+- Or use a conditional in which you compare the value of a fact to the specific value of a variable
+- Examples:<br/>
+`ansible_machine == "x86_64"`<br/>
+`ansible_distribution_major_version == "8"`<br/>
+`ansible_memfree_mb == 1024`<br/>
+`ansible_memfree_mb < 256`<br/>
+`ansible_memfree_mb > 256`<br/>
+`ansible_memfree_mb <= 256`<br/>
+`ansible_memfree_mb != 256`<br/>
+`ansible_memfree_mb != 512`<br/>
+`my_variable is defined`<br/>
+`my_variable is not defined`<br/>
+`my_variable`<br/>
+`ansible_distribution in supported_distros`
+
+- ansible-playbook distro.yml
+
+#### Testing Multiple Conditions
+- `when` can be used to test multiple conditions as well
+- Use `and` or `or` group the conditions with parantheses:<br/>
+`when: ansible_distribution == "CentOS" or ansible_distribution == "RedHat"`<br/>
+`when: ansible_machine == "x86_64" and ansible_distribution == "CentOS"`<br/>
+- The `when` keyword also supports a list, and when using a list, all of the conditions must be true
+- Complex conditional statements can group conditions using parantheses
 
 - ansible-playbook restart_sshd_when_crond_is_running.yml
 - ansible `linux` -a "sudo systemctl start crond"
@@ -399,12 +440,32 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook when_multiple_complex.yml
 - ansible `linux` -a "sudo systemctl status httpd"
 
+
+#### Using Handlers
+- Handlers allow you to configure playbooks in a way that one task<br/> 
+  will only run if another task hs been running successfully
+
+- In order to run the handler, a `notify` statement is used from the main task to trigger the handler
+- Handlers tipically are used to restart services or reboot hosts
+- Handlers are executed after running all tasks in a play
+- Handlers will only run if a task has `changed` something,<br/>  
+  so if an `ok` result instead of a `changed` result is reported, the handler will not run
+
+- If one of the tasks fails, the handler will not run, but this may be overwritten using `force_handlers: True`
+- One task may trigger more than one handler
+
 - touch /tmp/index.html
 - ansible-playbook handlers.yml
 - ansible `linux` -a "ls -l /var/www/html"
 - ansible `linux` -a "sudo rm /var/www/html/index.html"
 - ansible `linux` -a "ls -l /var/www/html"
 - ansible-playbook handlers.yml
+- Remove the file from destination: 
+  ansible `linux` -m file -a "path=/var/www/html/index.html state=absent"
+- ansible linux -a "ls -l /var/www/html"
+
+- Notice:<br/>
+  When you run the `add-hoc` command use the `=` notation, but in `playbooks (.yml files)`, use the `:` notation
 
 
 
