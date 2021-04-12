@@ -460,12 +460,26 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible `linux` -a "sudo rm /var/www/html/index.html"
 - ansible `linux` -a "ls -l /var/www/html"
 - ansible-playbook handlers.yml
-- Remove the file from destination: 
-  ansible `linux` -m file -a "path=/var/www/html/index.html state=absent"
-- ansible linux -a "ls -l /var/www/html"
+- Remove the file from destination:<br/>
+  ansible `linux` -m `file` -a "path=/var/www/html/index.html state=absent" /<br/> 
+  ansible `linux` -a "sudo rm /var/www/html/index.html"
+- ansible `linux` -a "ls -l /var/www/html"
 
 - Notice:<br/>
   When you run the `add-hoc` command use the `=` notation, but in `playbooks (.yml files)`, use the `:` notation
+
+#### Using Blocks
+- A block is a logical group of tasks
+- It can be used to control how tasks are executed
+- One block can, for instance, be enabled using a single `when`
+- Blocks can also be used in error condition handling
+- Notice that items can be used on blocks
+
+- ansible-playbook blocks.yml
+- ansible-playbook blocks2.yml
+- ansible `linux` -m `file` -a "path=/var/www/html/index.html state=touch" /<br/> 
+  ansible `linux` -a "sudo touch /var/www/html/index.html"
+- ansible `linux` -a "ls -l /var/www/html"
 
 
 
