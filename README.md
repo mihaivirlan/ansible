@@ -361,19 +361,31 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible `linux` -m `ping`
 
+#### Using Loops and Items
+- The `loop` keyword allows you to iterate through a simple list of items
+- Before Ansible 2.5, the `items` keyword was used instead
+- The list that loop is using can be defined by a variable
+- Each item in a loop can be a hash/dictionary with multiple keys in each hash/dictionary
+- The `loop` keyword is the current keyword
+- In previous versions of Ansible, the `with_*` keyword was used fo the same purpose
+
 #### From `ansible-root` machine
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
 - cd `task-control`
 - pwd (should be as: `/root/ansible/task-control`)
+- tree
 
 - ansible-playbook advanced_when_usage.yml
 - ansible-playbook ifsize.yml
+
 - ansible-playbook loopservices.yml
-s
 - ansible `linux` -a "sudo systemctl stop crond"
 - ansible `linux` -a "sudo systemctl status crond"
+
+- ansible-playbook loopusers.yml
+
 - ansible-playbook restart_sshd_when_crond_is_running.yml
 - ansible `linux` -a "sudo systemctl start crond"
 - ansible `linux` -a "sudo systemctl status crond"

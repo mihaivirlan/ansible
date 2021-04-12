@@ -1,0 +1,13 @@
+centos8-server
+ubuntu19-desktop
+
+[lamp_test]
+centos8-server
+
+[lamp_prod]
+centos8-server
+ubuntu19-desktop
+
+[nodes:children]
+lamp_test
+lamp_prod

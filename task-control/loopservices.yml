@@ -1,5 +1,5 @@
 - name: start some services
-  hosts: linux
+  hosts: centos8-server
   vars:
     my_services:
       - crond
