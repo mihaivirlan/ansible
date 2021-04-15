@@ -479,7 +479,29 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook blocks2.yml
 - ansible `linux` -m `file` -a "path=/var/www/html/index.html state=touch" /<br/> 
   ansible `linux` -a "sudo touch /var/www/html/index.html"
+
 - ansible `linux` -a "ls -l /var/www/html"
+- ansible-playbook blocks2.yml
+
+#### Dealing with Failures
+- Ansible looks at the exit status of a task to determine whether it has failed
+- When any task fails, Ansible aborts the rest of the play on that host and continues with the next host
+- Different solutions can be used to change that behavior
+- Use `ignore_errors` in a task to ignore failures
+- Use `force_handlers` to force a handler that has been triggered to run, even if (another) task fails
+
+- As Ansible only looks at the exit status of a failed task, it may think a task was successfully where that is not the case
+- To be more specific, use `failed_when` to specify what to look for in command output to recognize a failure
+
+- The `failed_when` keyword can be used in a task to identify when a task has failed
+- The `fail` module can be used to print a message that informs why a task has failed
+- To use `failed_when` or `fail`, the result of the command must be registered,<br/>
+  and the registered variable output must be analyzed
+
+- When using the `fail` module, the failing task must have `ignore_errors` set to yes
+
+- ansible-playbook failure.yml
+- ansible-playbook failure2.yml
 
 
 
