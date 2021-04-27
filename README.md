@@ -503,6 +503,16 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible-playbook failure.yml
 - ansible-playbook failure2.yml
 
+#### Managing Changed Status
+- Managing the changed status may be important, as handlers trigger on the changed status
+- The result of a command can be registered, and the registered variable can be scanned<br/> 
+  for specific text to determine that a change has occurred
+
+- This alllows Ansible to report a changed status, where it normally wouldnot, thus allowing handlers to be triggered
+- Using `changed_when` is usable in two cases:<br/>
+to allow handlers to run when a change would not normally trigger<br/>
+to disable commands that run successful to report a changed status
+
 
 
 # Ansible Roles
