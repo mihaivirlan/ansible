@@ -520,6 +520,12 @@ to disable commands that run successful to report a changed status
 
 
 
+# Ansible Deploying Files
+#### Using Modules to Manipulate Files
+
+
+
+
 # Ansible Roles
 ### Contents
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
