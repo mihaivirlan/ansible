@@ -59,8 +59,8 @@ ansible_python_interpreter=/usr/bin/python3
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
-- cd `ansible-modules_and_ansible-playbooks`
-- pwd (should be as: `/root/ansible/ansible-modules_and_ansible-playbooks`)
+- cd `ansible_modules_and_ansible_playbooks`
+- pwd (should be as: `/root/ansible/ansible_modules_and_ansible_playbooks`)
 
 - cat vsftpd.yml
 - ansible-playbook --syntax-check vsftpd.yml
@@ -126,11 +126,11 @@ ansible_python_interpreter=/usr/bin/python3
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
-- cd `ansible-modules_and_ansible_playbooks`
-- pwd (should be as: `/root/ansible/ansible-modules_and_ansible_playbooks`)
+- cd `ansible_modules_and_ansible_playbooks`
+- pwd (should be as: `/root/ansible/ansible_modules_and_ansible_playbooks`)
 
 - ansible-playbook copy_file_module.yml
-- and so... for each `ansible module` from the `/root/ansible/ansible-modules_and_ansible_playbooks` folder
+- and so... for each `ansible module` from the `/root/ansible/ansible_modules_and_ansible_playbooks` folder
 
 
 
@@ -365,8 +365,8 @@ ansible_python_interpreter=/usr/bin/python3
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
-- cd `task-control`
-- pwd (should be as: `/root/ansible/task-control`)
+- cd `task_control`
+- pwd (should be as: `/root/ansible/task_control`)
 - tree
 
 #### Using Loops and Items
@@ -521,9 +521,24 @@ to disable commands that run successful to report a changed status
 
 
 # Ansible Deploying Files
+### Contents
+- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
+
 #### Using Modules to Manipulate Files
+- sudo su -
+- git clone `https://github.com/mihaivirlan/ansible.git`
+- cd `path_to_new_cloned_repository`
+- cd `deploying_files`
+- pwd (should be as: `/root/ansible/deploying_files`)
+- ansible-doc files
+- ansible-playbook file.yml
+- ansible-doc stat
+- ansible-doc fetch
+- ansible-playbook copy.yml
 
-
+#### Managing SELinux File Context
+- ansible-playbook selinux.yml
+- ansible linux -a "ls -lZ /tmp/removeme"
 
 
 # Ansible Roles
@@ -535,8 +550,8 @@ to disable commands that run successful to report a changed status
 - sudo su -
 - git clone `https://github.com/mihaivirlan/ansible.git`
 - cd `path_to_new_cloned_repository`
-- cd `managing-files`
-- pwd (should be as: `/root/ansible/managing-files`)
+- cd `managing_files`
+- pwd (should be as: `/root/ansible/managing_files`)
 - ansible-galaxy search `nginx`
 - ansible-galaxy search `nginx` --platform EL | grep `geerl`
 - ansible-galaxy install g`eerlingguy.nginx`
@@ -546,7 +561,7 @@ to disable commands that run successful to report a changed status
 - cat tasks/main.yml
 - cat tasks/setup-RedHat.yml
 - cd ~
-- cd `/root/ansible/managing-files`
+- cd `/root/ansible/managing_files`
 - cat nginx-role.yml
 - ansible-playbook nginx-role.yml
 
