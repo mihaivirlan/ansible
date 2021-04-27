@@ -513,6 +513,11 @@ ansible_python_interpreter=/usr/bin/python3
 to allow handlers to run when a change would not normally trigger<br/>
 to disable commands that run successful to report a changed status
 
+- ansible-playbook changed.yml
+
+#### Using Task Control
+- ansible-playbook lab.yml
+
 
 
 # Ansible Roles
