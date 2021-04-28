@@ -545,6 +545,8 @@ to disable commands that run successful to report a changed status
 
 #### Deploying Files with Templates
 - ansible-playbook lab.yml
+- ansible centos8-server -a "sudo firewall-cmd --list-all"
+- ansible-playbook lab-test.yml
 
 
 # Ansible Roles

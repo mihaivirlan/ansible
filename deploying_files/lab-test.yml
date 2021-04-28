@@ -1,0 +1,13 @@
+- name: test ftp upload
+  hosts: localhost
+  become: true
+  tasks:
+  - name: install lftp
+    yum:
+      name: lftp
+  - name: upload file
+    shell: >
+      lftp centos8-server <<EOF
+      cd pub
+      put /etc/hosts
+      EOF
