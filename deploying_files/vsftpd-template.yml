@@ -1,6 +1,6 @@
 - name: configure VSFTPD using a template
   hosts: linux
-  become: true
+  become: yes
   vars:
     anonymous_enable: yes
     local_enable: yes
@@ -11,6 +11,6 @@
     yum:
       name: vsftpd
   - name: use template to copy FTP config
-    template: 
+    template:
       src: vsftpd.j2
       dest: /etc/vsftpd/vsftpd.conf

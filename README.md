@@ -10,7 +10,6 @@
 - ansible `linux` -m `shell` -a 'cat /tmp/motd'
 
 
-
 # Ansible Playbooks
 ### Understanding Plays
 - A `play` is a series of tasks that are executed against selected hosts from the inventory, using specific credentials.
@@ -78,7 +77,6 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible centos8-server -m shell -a "rpm -qa | grep http"
 
 
-
 # Ansible modules
 ### Essential Ansible Modules
 - `ping`: ansible `linux` `ping`
@@ -131,7 +129,6 @@ ansible_python_interpreter=/usr/bin/python3
 
 - ansible-playbook copy_file_module.yml
 - and so... for each `ansible module` from the `/root/ansible/ansible_modules_and_ansible_playbooks` folder
-
 
 
 # Ansible Variables and Facts
@@ -323,7 +320,6 @@ ansible_python_interpreter=/usr/bin/python3
 - ansible lamp -a "ls -l /etc/ansible/facts.d"
 - ansible lamp -m shell -a "cat /etc/ansible/facts.d/localfacts.fact"
 - ansible lamp -a "systemctl status smb"
-
 
 
 # Ansible tasks-control
@@ -519,7 +515,6 @@ to disable commands that run successful to report a changed status
 - ansible-playbook lab.yml
 
 
-
 # Ansible Deploying Files
 ### Contents
 - `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
@@ -539,6 +534,13 @@ to disable commands that run successful to report a changed status
 #### Managing SELinux File Context
 - ansible-playbook selinux.yml
 - ansible linux -a "ls -lZ /tmp/removeme"
+
+#### Using Jinja2 Templates
+- ansible-playbook vsftpd-template.yml
+- ansible linux -a "cat /etc/vsftpd/vsftpd.conf"
+
+#### Using Control Structures in Jinja2
+- ansible `linux` -a "cat /etc/hosts"
 
 
 # Ansible Roles
@@ -634,47 +636,6 @@ system_manager:	`your_system_manager_email_address`
 - `vars` = Both vars and defaults stores variable.<br/>
    Variables stored under "vars" has got higher prioprity and difficult to override.
    
-
-
-# Managing files
-### Contents
-- `ansible-root` machine and `ansible-client`: two up vm's/machines, mandatory for this demo!
-
-#### Using Templates and Jinja2
-#### From `ansible-root` machine
-- sudo su -
-- git clone `https://github.com/mihaivirlan/ansible.git`
-- cd `path_to_new_cloned_repository`
-- cd `managing-files`
-- pwd (should be as: `/root/ansible/managing-files`)
-
-- ansible-playbook vsftpd-template.yml
-- ansible `linux` -a "cat /etc/vsftpd/vsftpd.conf"
-
-#### Or connect through ssh on `ansible-client` machine and check if `vsftpd.j2` template was successfully copied
-- ls -l /etc/vsftpd
-- cat /etc/vsftpd/vsftpd.conf
-
-#### From `ansible-root` machine:
-- ansible `linux` -a "cat /etc/hosts"
-- ansible-playbook hostsfile.yml
-
-- ansible-playbook copy.yml
-- ansible `linux` -a "cat /tmp/hosts"
-
-- tree files
-- tree vars
-- cat vars/groups
-- cat vars/users
-- cat setup_users.yml
-- ansible-playbook setup_users.yml
-- ansible `linux` -a "sudo cat /etc/group"
-- ansible `linux` -a "sudo ls -la /home"
-
-#### Test the ssh connection with new created users, from your `ansible-root` machine to `ansible-client` machine
-- ssh `linda@ansible-client` / ssh `lisa@ansible-client`
-
-
 
 # Ansible Inventories
 ### Contents

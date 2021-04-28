@@ -1,7 +1,0 @@
-- name: use motd role playbook
-  hosts: linux
-  become: true
-
-  roles:
-    - role: motd
-      system_manager: your_system_manager_email_address
