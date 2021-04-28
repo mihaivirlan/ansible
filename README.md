@@ -541,6 +541,10 @@ to disable commands that run successful to report a changed status
 
 #### Using Control Structures in Jinja2
 - ansible `linux` -a "cat /etc/hosts"
+- ansible-playbook hostsfile.yml
+
+#### Deploying Files with Templates
+- ansible-playbook lab.yml
 
 
 # Ansible Roles
