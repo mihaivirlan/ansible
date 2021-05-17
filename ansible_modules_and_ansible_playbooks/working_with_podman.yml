@@ -1,0 +1,27 @@
+- name: Installing the Podman open source container engine 
+  hosts: linux
+  become: yes
+  tasks:
+  - name: Installing podman
+    yum:
+      name: podman
+      state: present
+
+- name: Pull the httpd image from Docker Hub with podman_image module
+  hosts: linux
+  become: yes
+  tasks:
+  - name: Pull httpd:2-alpine image from dockerhub
+    podman_image:
+      name: docker.io/httpd
+      tag: 2-alpine
+
+- name: Run the installed httpd image
+  hosts: linux
+  become: yes
+  tasks: 
+  - name: Running httpd image
+      containers.podman.podman_container:
+        name: my-first-container
+        image: docker.io/httpd:2-alpine
+        state: started

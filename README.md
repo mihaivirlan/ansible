@@ -128,6 +128,13 @@ ansible_python_interpreter=/usr/bin/python3
 - pwd (should be as: `/root/ansible/ansible_modules_and_ansible_playbooks`)
 
 - ansible-playbook copy_file_module.yml
+
+###### Working with Podman - open source container engine, used by developing, managing and running container images
+- ansible-playbook working_with_podman
+- ansible linux -a "podman --version"
+- ansible linux -a "sudo podman images"
+- ansible linux -a "sudo podman ps"
+
 - and so... for each `ansible module` from the `/root/ansible/ansible_modules_and_ansible_playbooks` folder
 
 
