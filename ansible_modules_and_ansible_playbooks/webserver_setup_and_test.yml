@@ -1,5 +1,6 @@
 - name: enable webserver
   become: true
+  become_user: root
   hosts: centos8-server
   tasks:
     - name: install httpd and firewalld
